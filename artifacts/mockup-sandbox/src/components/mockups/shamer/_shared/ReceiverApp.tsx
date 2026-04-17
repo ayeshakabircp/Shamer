@@ -304,7 +304,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
 
   return (
     <div
-      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden"
+      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden bg-[#fff7f0]"
       style={{ background: "#1A1A1A" }}
     >
       <TomatoSplash />
