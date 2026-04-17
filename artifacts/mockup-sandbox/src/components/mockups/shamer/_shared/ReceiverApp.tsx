@@ -226,8 +226,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   if (screen === "deserved") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center"
-        style={{ background: "#1A1A1A" }}
+        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark"
       >
         <div className="text-5xl mb-6">✅</div>
         <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
@@ -250,8 +249,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   if (screen === "didnt-use-ai") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center"
-        style={{ background: "#1A1A1A" }}
+        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark"
       >
         <div className="text-5xl mb-6">🤔</div>
         <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
@@ -271,8 +269,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   if (screen === "never-wrong") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative"
-        style={{ background: "#1A1A1A" }}
+        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative shamer-bg-dark"
       >
         <div className="text-5xl mb-6">⚖️</div>
         <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
@@ -304,8 +301,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
 
   return (
     <div
-      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden bg-[#fff7f0]"
-      style={{ background: "#1A1A1A" }}
+      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden shamer-bg-dark"
     >
       <TomatoSplash />
       <div className="relative z-10 w-full max-w-sm">

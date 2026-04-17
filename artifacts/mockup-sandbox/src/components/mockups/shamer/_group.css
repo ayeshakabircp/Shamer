@@ -7,3 +7,20 @@
 .shamer-font-body {
   font-family: 'Hanken Grotesk', sans-serif;
 }
+
+.shamer-bg-light {
+  background-color: #FFF7F0;
+  background-image: url('/__mockup/grunge-texture.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+}
+
+.shamer-bg-dark {
+  background-color: #1A1A1A;
+  background-image: url('/__mockup/grunge-texture.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: screen;
+  background-repeat: no-repeat;
+}
