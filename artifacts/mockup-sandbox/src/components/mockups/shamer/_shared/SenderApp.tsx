@@ -133,9 +133,7 @@ export function SenderApp() {
           Go ahead, <strong>SHAME THEM.</strong>
         </p>
 
-        <p className="text-xs mb-3" style={{ color: "#999" }}>
-          pick a template or write your own
-        </p>
+        <p className="text-xs mb-3" style={{ color: "#999" }}>Pick a template or write your own</p>
 
         <div
           className="rounded-3xl p-4 mb-8 border-2"
