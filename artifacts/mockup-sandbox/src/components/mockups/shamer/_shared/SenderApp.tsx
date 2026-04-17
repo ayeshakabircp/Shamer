@@ -123,11 +123,11 @@ export function SenderApp() {
       style={{ background: "#FFF7F0" }}
     >
       <div className="w-full max-w-sm text-center">
-        <h1 className="shamer-font-display font-black mb-3 text-[64px]" style={{ fontSize: "2.4rem", color: "#1A1A1A" }}>
+        <h1 className="shamer-font-display font-black mb-3 leading-tight" style={{ fontSize: "64px", color: "#1A1A1A" }}>
           Were you just<br />AI-ed?
         </h1>
 
-        <p className="text-sm mb-8 leading-relaxed" style={{ color: "#444" }}>
+        <p className="mb-8 leading-relaxed" style={{ fontSize: "16px", color: "#444" }}>
           There are some places AI just doesn't belong.
           If you're here, you're probably a victim.
           Go ahead, <strong>SHAME THEM.</strong>
