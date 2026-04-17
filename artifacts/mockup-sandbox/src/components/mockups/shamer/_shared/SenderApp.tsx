@@ -127,7 +127,7 @@ export function SenderApp() {
           Were you just<br />AI-ed?
         </h1>
 
-        <p className="mb-8 leading-relaxed" style={{ fontSize: "16px", color: "#444" }}>
+        <p className="mb-8 leading-relaxed text-[#262626]" style={{ fontSize: "16px", color: "#444" }}>
           There are some places AI just doesn't belong.
           If you're here, you're probably a victim.
           Go ahead, <strong>SHAME THEM.</strong>
