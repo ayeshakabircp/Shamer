@@ -10,17 +10,18 @@
 
 .shamer-bg-light {
   background-color: #FFF7F0;
-  background-image: url('/__mockup/grunge-texture.png');
+  background-image:
+    linear-gradient(rgba(255, 247, 240, 0.8), rgba(255, 247, 240, 0.8)),
+    url('/__mockup/grunge-texture.png');
   background-size: cover;
   background-position: center;
-  background-blend-mode: multiply;
 }
 
 .shamer-bg-dark {
   background-color: #1A1A1A;
-  background-image: url('/__mockup/grunge-texture.png');
+  background-image:
+    linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)),
+    url('/__mockup/grunge-texture.png');
   background-size: cover;
   background-position: center;
-  background-blend-mode: screen;
-  background-repeat: no-repeat;
 }
