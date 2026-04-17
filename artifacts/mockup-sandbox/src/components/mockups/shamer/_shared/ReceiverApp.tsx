@@ -93,9 +93,10 @@ interface WiggleButtonProps {
   onClick: () => void;
   style?: React.CSSProperties;
   className?: string;
+  anchorRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
-function WiggleButton({ label, onClick, style, className }: WiggleButtonProps) {
+function WiggleButton({ label, onClick, style, className, anchorRef }: WiggleButtonProps) {
   const btnRef = useRef<HTMLButtonElement>(null);
   const originRef = useRef<{ x: number; y: number } | null>(null);
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -109,6 +110,13 @@ function WiggleButton({ label, onClick, style, className }: WiggleButtonProps) {
     const BH = btn.offsetHeight || 44;
 
     function getOrigin() {
+      if (anchorRef?.current) {
+        const rect = anchorRef.current.getBoundingClientRect();
+        return {
+          x: rect.left + (rect.width - BW) / 2,
+          y: rect.bottom + 16,
+        };
+      }
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       return {
@@ -210,6 +218,7 @@ interface ReceiverAppProps {
 
 export function ReceiverApp({ shameText }: ReceiverAppProps) {
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
+  const deservedBtnRef = useRef<HTMLButtonElement>(null);
 
   const text =
     shameText || "Babe... did you just outsource your feelings to a robot? Gross.";
@@ -274,6 +283,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
         </p>
         <div className="flex flex-col gap-4 w-full max-w-xs items-center">
           <button
+            ref={deservedBtnRef}
             onClick={() => setScreen("deserved")}
             className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
             style={{ background: "#FF3B2F", color: "#fff" }}
@@ -284,6 +294,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
         <WiggleButton
           label="No I won't!"
           onClick={() => {}}
+          anchorRef={deservedBtnRef}
           className="rounded-2xl px-6 py-3 font-bold text-sm border-2"
           style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
         />
