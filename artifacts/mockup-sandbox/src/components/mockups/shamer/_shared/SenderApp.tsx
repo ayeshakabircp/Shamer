@@ -123,15 +123,6 @@ export function SenderApp() {
       style={{ background: "#FFF7F0" }}
     >
       <div className="w-full max-w-sm text-center">
-        <div className="mb-3">
-          <span
-            className="inline-block rounded-full px-3 py-1 text-xs font-bold tracking-widest uppercase"
-            style={{ background: "#FF3B2F", color: "#fff" }}
-          >
-            ⚠ Shame Alert
-          </span>
-        </div>
-
         <h1 className="shamer-font-display font-black mb-3 text-[64px]" style={{ fontSize: "2.4rem", color: "#1A1A1A" }}>
           Were you just<br />AI-ed?
         </h1>
