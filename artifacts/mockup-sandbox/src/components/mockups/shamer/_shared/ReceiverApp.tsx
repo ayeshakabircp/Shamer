@@ -312,9 +312,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
         <h1
           className="shamer-font-display font-black mb-4 uppercase text-center"
           style={{ fontSize: "64px", color: "#FF3B2F", lineHeight: 1.1 }}
-        >
-          You've been shamed.
-        </h1>
+        >You've been shamed!</h1>
 
         <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#ddd" }}>
           {text}
