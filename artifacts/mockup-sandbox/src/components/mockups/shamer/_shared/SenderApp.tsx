@@ -192,7 +192,7 @@ export function SenderApp() {
         <button
           onClick={handleGenerate}
           disabled={!displayText.trim()}
-          className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90 disabled:opacity-40"
+          className="w-full rounded-2xl px-6 py-4 text-base transition-all hover:opacity-90 disabled:opacity-40 bg-[#ff7340] border-t-[#b8b8b8] border-r-[#b8b8b8] border-b-[#b8b8b8] border-l-[#b8b8b8] border-t-[0.5px] border-r-[0.5px] border-b-[0.5px] border-l-[0.5px] rounded-tl-[8px] rounded-tr-[8px] rounded-br-[8px] rounded-bl-[8px] font-semibold"
           style={{ background: "#FF3B2F", color: "#fff" }}
         >
           Generate Shame Link
