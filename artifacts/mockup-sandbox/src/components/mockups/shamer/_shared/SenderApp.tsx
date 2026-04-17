@@ -61,7 +61,7 @@ export function SenderApp() {
   if (screen === "link") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 text-center"
+        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center"
         style={{ background: "#FFF7F0" }}
       >
         <div className="mb-6">
@@ -119,7 +119,7 @@ export function SenderApp() {
 
   return (
     <div
-      className="shamer-font-body min-h-screen flex flex-col items-center justify-center px-6 py-10"
+      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10"
       style={{ background: "#FFF7F0" }}
     >
       <div className="w-full max-w-sm text-center">

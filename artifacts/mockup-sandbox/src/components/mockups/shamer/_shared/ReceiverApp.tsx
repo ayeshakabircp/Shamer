@@ -226,7 +226,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   if (screen === "deserved") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 text-center"
+        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center"
         style={{ background: "#1A1A1A" }}
       >
         <div className="text-5xl mb-6">✅</div>
@@ -250,7 +250,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   if (screen === "didnt-use-ai") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 text-center"
+        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center"
         style={{ background: "#1A1A1A" }}
       >
         <div className="text-5xl mb-6">🤔</div>
@@ -271,7 +271,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   if (screen === "never-wrong") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 text-center overflow-hidden relative"
+        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative"
         style={{ background: "#1A1A1A" }}
       >
         <div className="text-5xl mb-6">⚖️</div>
@@ -304,7 +304,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
 
   return (
     <div
-      className="shamer-font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 text-center relative overflow-hidden"
+      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden"
       style={{ background: "#1A1A1A" }}
     >
       <TomatoSplash />
