@@ -239,7 +239,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
         <button
           onClick={() => setScreen("shame")}
           className="rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-          style={{ background: "#FF3B2F", color: "#fff" }}
+          style={{ background: "#ff6161", color: "#fff" }}
         >
           Shame Someone Else
         </button>
@@ -260,7 +260,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
         <button
           onClick={() => setScreen("never-wrong")}
           className="w-full max-w-xs rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-          style={{ background: "#FF3B2F", color: "#fff" }}
+          style={{ background: "#ff6161", color: "#fff" }}
         >
           No I didn't!
         </button>
@@ -286,7 +286,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
             ref={deservedBtnRef}
             onClick={() => setScreen("deserved")}
             className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-            style={{ background: "#FF3B2F", color: "#fff" }}
+            style={{ background: "#ff6161", color: "#fff" }}
           >
             I deserved this
           </button>
@@ -311,7 +311,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
       <div className="relative z-10 w-full max-w-sm">
         <h1
           className="shamer-font-display font-black mb-4 uppercase text-center"
-          style={{ fontSize: "64px", color: "#FF3B2F", lineHeight: 1.1 }}
+          style={{ fontSize: "64px", color: "#ff6161", lineHeight: 1.1 }}
         >You've been shamed!</h1>
 
         <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#ddd" }}>
@@ -326,7 +326,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
           <button
             onClick={() => setScreen("deserved")}
             className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-            style={{ background: "#FF3B2F", color: "#fff" }}
+            style={{ background: "#ff6161", color: "#fff" }}
           >
             I deserved this
           </button>
