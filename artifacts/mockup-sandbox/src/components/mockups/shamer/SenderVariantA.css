@@ -1,0 +1,7 @@
+.shamer-bg-liquid {
+  background-color: #FFF7F0;
+  background-image: url('/__mockup/liquid-texture.jpg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+}

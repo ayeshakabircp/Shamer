@@ -1,0 +1,8 @@
+.shamer-bg-halftone {
+  background-color: #FFF7F0;
+  background-image: url('/__mockup/halftone-texture.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-blend-mode: multiply;
+  opacity: 1;
+}

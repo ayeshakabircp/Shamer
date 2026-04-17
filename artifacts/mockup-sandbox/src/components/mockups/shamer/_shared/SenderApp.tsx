@@ -19,7 +19,7 @@ function generateFakeLink() {
   return `share.me/${adj}-${noun}-${code}`;
 }
 
-export function SenderApp() {
+export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string }) {
   const [screen, setScreen] = useState<Screen>("home");
   const [templateIndex, setTemplateIndex] = useState(0);
   const [customText, setCustomText] = useState("");
@@ -61,7 +61,7 @@ export function SenderApp() {
   if (screen === "link") {
     return (
       <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-light"
+        className={`shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center ${bgClass}`}
       >
         <div className="mb-6">
           <span className="text-5xl">🔗</span>
@@ -118,7 +118,7 @@ export function SenderApp() {
 
   return (
     <div
-      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 shamer-bg-light"
+      className={`shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 ${bgClass}`}
     >
       <div className="w-full max-w-sm text-center">
         <h1 className="shamer-font-display font-black mb-3 leading-tight" style={{ fontSize: "64px", color: "#1A1A1A" }}>
