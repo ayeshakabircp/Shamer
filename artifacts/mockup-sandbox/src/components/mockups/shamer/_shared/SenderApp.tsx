@@ -132,7 +132,7 @@ export function SenderApp() {
           </span>
         </div>
 
-        <h1 className="shamer-font-display font-black mb-3 leading-tight" style={{ fontSize: "2.4rem", color: "#1A1A1A" }}>
+        <h1 className="shamer-font-display font-black mb-3 text-[64px]" style={{ fontSize: "2.4rem", color: "#1A1A1A" }}>
           Were you just<br />AI-ed?
         </h1>
 
