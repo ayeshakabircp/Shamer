@@ -308,10 +308,9 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
       style={{ background: "#1A1A1A" }}
     >
       <TomatoSplash />
-
       <div className="relative z-10 w-full max-w-sm">
         <h1
-          className="shamer-font-display font-black leading-tight mb-4"
+          className="shamer-font-display font-black mb-4 text-[64px] text-center"
           style={{ fontSize: "2.5rem", color: "#FF3B2F" }}
         >
           You've been shamed.
