@@ -97,68 +97,110 @@ interface WiggleButtonProps {
 
 function WiggleButton({ label, onClick, style, className }: WiggleButtonProps) {
   const btnRef = useRef<HTMLButtonElement>(null);
-  const posRef = useRef({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const originRef = useRef<{ x: number; y: number } | null>(null);
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isResettingRef = useRef(false);
 
-  const flee = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+  useEffect(() => {
     const btn = btnRef.current;
-    const container = containerRef.current;
-    if (!btn || !container) return;
+    if (!btn) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const btnRect = btn.getBoundingClientRect();
+    const BW = btn.offsetWidth || 140;
+    const BH = btn.offsetHeight || 44;
 
-    let clientX: number, clientY: number;
-    if ("touches" in e) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
+    function getOrigin() {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      return {
+        x: (vw - BW) / 2,
+        y: (vh - BH) / 2 + 60,
+      };
     }
 
-    const btnCenterX = btnRect.left + btnRect.width / 2;
-    const btnCenterY = btnRect.top + btnRect.height / 2;
+    if (!originRef.current) {
+      const o = getOrigin();
+      originRef.current = o;
+      btn.style.position = "fixed";
+      btn.style.left = `${o.x}px`;
+      btn.style.top = `${o.y}px`;
+      btn.style.zIndex = "9999";
+      btn.style.transition = "none";
+    }
 
-    const dx = btnCenterX - clientX;
-    const dy = btnCenterY - clientY;
-    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    function resetToOrigin() {
+      if (!btn) return;
+      isResettingRef.current = true;
+      const o = originRef.current ?? getOrigin();
+      btn.style.transition = "left 1.8s cubic-bezier(0.25,0.1,0.25,1), top 1.8s cubic-bezier(0.25,0.1,0.25,1)";
+      btn.style.left = `${o.x}px`;
+      btn.style.top = `${o.y}px`;
+      setTimeout(() => { isResettingRef.current = false; }, 1900);
+    }
 
-    const fleeX = (dx / dist) * 120 + (Math.random() - 0.5) * 60;
-    const fleeY = (dy / dist) * 80 + (Math.random() - 0.5) * 60;
+    function scheduleReset() {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = setTimeout(resetToOrigin, 1200);
+    }
 
-    const maxX = containerRect.width - btnRect.width;
-    const maxY = containerRect.height - btnRect.height;
+    function onMove(clientX: number, clientY: number) {
+      if (!btn) return;
+      isResettingRef.current = false;
 
-    posRef.current.x = Math.max(0, Math.min(maxX, posRef.current.x + fleeX));
-    posRef.current.y = Math.max(0, Math.min(maxY, posRef.current.y + fleeY));
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const BW2 = btn.offsetWidth || 140;
+      const BH2 = btn.offsetHeight || 44;
 
-    btn.style.position = "absolute";
-    btn.style.left = `${posRef.current.x}px`;
-    btn.style.top = `${posRef.current.y}px`;
-    btn.style.transition = "left 0.2s, top 0.2s";
+      const cx = vw / 2;
+      const cy = vh / 2;
+
+      const dx = clientX - cx;
+      const dy = clientY - cy;
+
+      const targetX = Math.max(8, Math.min(vw - BW2 - 8, cx - dx - BW2 / 2));
+      const targetY = Math.max(8, Math.min(vh - BH2 - 8, cy - dy - BH2 / 2));
+
+      btn.style.transition = "left 0.25s ease-out, top 0.25s ease-out";
+      btn.style.left = `${targetX}px`;
+      btn.style.top = `${targetY}px`;
+
+      scheduleReset();
+    }
+
+    function handleMouseMove(e: MouseEvent) {
+      onMove(e.clientX, e.clientY);
+    }
+
+    function handleTouchMove(e: TouchEvent) {
+      if (e.touches.length > 0) {
+        onMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    };
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: "60px" }}>
-      <button
-        ref={btnRef}
-        onMouseEnter={flee}
-        onTouchStart={flee}
-        onTouchMove={flee}
-        onClick={onClick}
-        className={className}
-        style={{
-          ...style,
-          position: "absolute",
-          left: posRef.current.x,
-          top: 0,
-          whiteSpace: "nowrap",
-        }}
-      >
-        {label}
-      </button>
-    </div>
+    <button
+      ref={btnRef}
+      onClick={onClick}
+      className={className}
+      style={{
+        ...style,
+        position: "fixed",
+        whiteSpace: "nowrap",
+        zIndex: 9999,
+      }}
+    >
+      {label}
+    </button>
   );
 }
 
@@ -238,15 +280,13 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
           >
             I deserved this
           </button>
-          <div className="w-full" style={{ position: "relative", height: "60px" }}>
-            <WiggleButton
-              label="No I won't!"
-              onClick={() => {}}
-              className="rounded-2xl px-6 py-3 font-bold text-sm border-2"
-              style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
-            />
-          </div>
         </div>
+        <WiggleButton
+          label="No I won't!"
+          onClick={() => {}}
+          className="rounded-2xl px-6 py-3 font-bold text-sm border-2"
+          style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
+        />
       </div>
     );
   }
