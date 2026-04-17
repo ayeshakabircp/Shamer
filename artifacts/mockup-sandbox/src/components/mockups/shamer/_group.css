@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+.shamer-font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.shamer-font-body {
+  font-family: 'Space Grotesk', sans-serif;
+}

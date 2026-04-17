@@ -1,0 +1,20 @@
+Build a mobile design for “Shamer” website.
+
+No login or navigation required.
+
+Now for the details, There are two flows.
+
+Sender:
+-Main center aligned large size headline says “Were you just AI-ed? With subtext saying “there are some places that AI just doesn’t belong, and if you’re here, you’re probably a victim. Go ahead, SHAME THEM”
+- below the text is a text box where users can choose between 3-4 fun shame templates through an arrow switcher. The templates can be like “ Babe... did you just outsource your feelings to a robot? Gross” or “Do better” or the users can choose to type it themselves.
+-Below the text box a button that says “Generate shame link”. Clicking on this takes them to a new screen with a generated shame link that is copyable and shareable. The link should be innocent looking without the platform name on it otherwise the receiver wont click on it. Below the shame link is a button that says “Preview Shame”(this takes them to the receiver flow with sender’s choice of text)  and “Shame someone else”(triggers receiver flow)
+
+Receiver
+The background has squished tomatoes pressed against the screen and sliding down.
+Main center aligned large size headline says “You’ve been shamed”. Below this, the subtext is the text chosen by sender, without a text box or tag, just plain text. There is a thumbs down emoji that moves up and down under this text.
+      -There are two CTAs “I deserved this” and “But I didnt use AI”
+- If user clicks on “I deserved this” they’re taken to the next screen that says “Apology accepted, do better next time” with a button that says “Shame someone else”
+-If user clicks on “But I didnt use AI” they’re taken to to the next screen that says “But you did” with a CTA “No i didnt not!”. Clicking on that takes to the next screen “The person who sent this to you is never wrong. Accept your shame” with two CTAs “I deserved this” and “No I won’t!”. -The “No I wont” button will keep moving away from the cursor, making it impossible to click or tap but just moves around the screen. It resets back into its position when there is no click or tap. If user clicks on “I deserved this” they’re taken to the next screen that says “Apology accepted, do better next time” with a button that says “Shame someone else”
+
+
+For UI, use the image attached as reference
