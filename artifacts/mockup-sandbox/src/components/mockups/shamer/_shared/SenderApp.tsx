@@ -3,9 +3,11 @@ import "./../_group.css";
 
 const SHAME_TEMPLATES = [
   "Babe... did you just outsource your feelings to a robot? Gross.",
-  "Do better.",
-  "I poured my heart out and you sent me a ChatGPT response. I'm done.",
-  "This relationship is not a prompt. Try again, human.",
+  "Uncle Frank. That joke wasn't yours. We know. The whole chat knows.",
+  "Another Monday. Another 'thought leadership' post written by a robot pretending to be you. Definitely original.",
+  "Sir that is not you in that photo. You are not that symmetrical. Be for real",
+  "Do better",
+  "It's giving ctrl+C, ctrl+V. Give me a break Jessica",
 ];
 
 type Screen = "home" | "link";
