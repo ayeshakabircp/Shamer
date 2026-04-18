@@ -218,6 +218,7 @@ interface ReceiverAppProps {
 
 export function ReceiverApp({ shameText }: ReceiverAppProps) {
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
+  const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const deservedBtnRef = useRef<HTMLButtonElement>(null);
@@ -225,32 +226,32 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   const text =
     shameText || "Babe... did you just outsource your feelings to a robot? Gross.";
 
-  const playedRef = useRef(false);
-
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.7;
-
-    function tryPlay() {
-      if (playedRef.current) return;
-      playedRef.current = true;
-      audio!.play().catch(() => {});
-      document.removeEventListener("click", tryPlay);
-      document.removeEventListener("touchstart", tryPlay);
-    }
-
-    document.addEventListener("click", tryPlay);
-    document.addEventListener("touchstart", tryPlay);
-    return () => {
-      document.removeEventListener("click", tryPlay);
-      document.removeEventListener("touchstart", tryPlay);
-    };
+    audio.play().then(() => setPlaying(true)).catch(() => {});
+    const onEnded = () => setPlaying(false);
+    audio.addEventListener("ended", onEnded);
+    return () => audio.removeEventListener("ended", onEnded);
   }, []);
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.muted = muted;
   }, [muted]);
+
+  function handleAudioButton() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (!playing) {
+      audio.currentTime = 0;
+      audio.play().then(() => setPlaying(true)).catch(() => {});
+    } else {
+      setMuted((m) => !m);
+    }
+  }
+
+  const audioIcon = !playing ? "▶" : muted ? "🔇" : "🔊";
 
   function renderScreen() {
     if (screen === "deserved") {
@@ -327,8 +328,8 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
       <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden shamer-bg-dark">
         <TomatoSplash />
         <button
-          onClick={() => setMuted((m) => !m)}
-          aria-label={muted ? "Unmute" : "Mute"}
+          onClick={handleAudioButton}
+          aria-label={!playing ? "Play sound" : muted ? "Unmute" : "Mute"}
           style={{
             position: "fixed",
             top: 16,
@@ -348,7 +349,7 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
             color: "#fff",
           }}
         >
-          {muted ? "🔇" : "🔊"}
+          {audioIcon}
         </button>
         <div className="relative z-10 w-full max-w-sm">
           <h1
