@@ -11,7 +11,7 @@
 .shamer-bg-light {
   background-color: #FFF7F0;
   background-image:
-    linear-gradient(rgba(255, 247, 240, 0.7), rgba(255, 247, 240, 0.7)),
+    linear-gradient(rgba(255, 247, 240, 0.9), rgba(255, 247, 240, 0.9)),
     url('/__mockup/halftone-texture.jpg');
   background-size: cover;
   background-position: center;
@@ -20,7 +20,7 @@
 .shamer-bg-dark {
   background-color: #1A1A1A;
   background-image:
-    linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.7)),
+    linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.9)),
     url('/__mockup/halftone-texture.jpg');
   background-size: cover;
   background-position: center;
