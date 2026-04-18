@@ -218,123 +218,158 @@ interface ReceiverAppProps {
 
 export function ReceiverApp({ shameText }: ReceiverAppProps) {
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
+  const [muted, setMuted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const deservedBtnRef = useRef<HTMLButtonElement>(null);
 
   const text =
     shameText || "Babe... did you just outsource your feelings to a robot? Gross.";
 
-  if (screen === "deserved") {
-    return (
-      <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark"
-      >
-        <div className="text-5xl mb-6">✅</div>
-        <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
-          Apology accepted.
-        </h2>
-        <p className="text-base mb-10" style={{ color: "#aaa" }}>
-          Do better next time.
-        </p>
-        <button
-          onClick={() => setScreen("shame")}
-          className="rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-          style={{ background: "#ff6161", color: "#fff" }}
-        >
-          Shame Someone Else
-        </button>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.7;
+    audio.play().catch(() => {});
+  }, []);
 
-  if (screen === "didnt-use-ai") {
-    return (
-      <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark"
-      >
-        <div className="text-5xl mb-6">🤔</div>
-        <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
-          But you did.
-        </h2>
-        <button
-          onClick={() => setScreen("never-wrong")}
-          className="w-full max-w-xs rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-          style={{ background: "#ff6161", color: "#fff" }}
-        >
-          No I didn't!
-        </button>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.muted = muted;
+  }, [muted]);
 
-  if (screen === "never-wrong") {
-    return (
-      <div
-        className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative shamer-bg-dark"
-      >
-        <div className="text-5xl mb-6">⚖️</div>
-        <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
-          The person who sent this to you is never wrong.
-        </h2>
-        <p className="text-sm mb-8" style={{ color: "#aaa" }}>
-          Accept your shame.
-        </p>
-        <div className="flex flex-col gap-4 w-full max-w-xs items-center">
+  function renderScreen() {
+    if (screen === "deserved") {
+      return (
+        <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark">
+          <div className="text-5xl mb-6">✅</div>
+          <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
+            Apology accepted.
+          </h2>
+          <p className="text-base mb-10" style={{ color: "#aaa" }}>
+            Do better next time.
+          </p>
           <button
-            ref={deservedBtnRef}
-            onClick={() => setScreen("deserved")}
-            className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
+            onClick={() => setScreen("shame")}
+            className="rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
             style={{ background: "#ff6161", color: "#fff" }}
           >
-            I deserved this
+            Shame Someone Else
           </button>
         </div>
-        <WiggleButton
-          label="No I won't!"
-          onClick={() => {}}
-          anchorRef={deservedBtnRef}
-          className="rounded-2xl px-6 py-3 font-bold text-sm border-2"
-          style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
-        />
+      );
+    }
+
+    if (screen === "didnt-use-ai") {
+      return (
+        <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark">
+          <div className="text-5xl mb-6">🤔</div>
+          <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
+            But you did.
+          </h2>
+          <button
+            onClick={() => setScreen("never-wrong")}
+            className="w-full max-w-xs rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
+            style={{ background: "#ff6161", color: "#fff" }}
+          >
+            No I didn't!
+          </button>
+        </div>
+      );
+    }
+
+    if (screen === "never-wrong") {
+      return (
+        <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative shamer-bg-dark">
+          <div className="text-5xl mb-6">⚖️</div>
+          <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
+            The person who sent this to you is never wrong.
+          </h2>
+          <p className="text-sm mb-8" style={{ color: "#aaa" }}>
+            Accept your shame.
+          </p>
+          <div className="flex flex-col gap-4 w-full max-w-xs items-center">
+            <button
+              ref={deservedBtnRef}
+              onClick={() => setScreen("deserved")}
+              className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
+              style={{ background: "#ff6161", color: "#fff" }}
+            >
+              I deserved this
+            </button>
+          </div>
+          <WiggleButton
+            label="No I won't!"
+            onClick={() => {}}
+            anchorRef={deservedBtnRef}
+            className="rounded-2xl px-6 py-3 font-bold text-sm border-2"
+            style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden shamer-bg-dark">
+        <TomatoSplash />
+        <div className="relative z-10 w-full max-w-sm">
+          <h1
+            className="shamer-font-display font-black mb-4 uppercase text-center"
+            style={{ fontSize: "64px", color: "#ff6161", lineHeight: 1.1 }}
+          >You've been shamed!</h1>
+          <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#ddd" }}>
+            {text}
+          </p>
+          <div className="mb-8">
+            <BouncingThumbsDown />
+          </div>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => setScreen("deserved")}
+              className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
+              style={{ background: "#ff6161", color: "#fff" }}
+            >
+              I deserved this
+            </button>
+            <button
+              onClick={() => setScreen("didnt-use-ai")}
+              className="w-full rounded-2xl px-6 py-4 font-bold text-base border-2 transition-all hover:opacity-80"
+              style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
+            >
+              But I didn't use AI
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div
-      className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden shamer-bg-dark"
-    >
-      <TomatoSplash />
-      <div className="relative z-10 w-full max-w-sm">
-        <h1
-          className="shamer-font-display font-black mb-4 uppercase text-center"
-          style={{ fontSize: "64px", color: "#ff6161", lineHeight: 1.1 }}
-        >You've been shamed!</h1>
-
-        <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#ddd" }}>
-          {text}
-        </p>
-
-        <div className="mb-8">
-          <BouncingThumbsDown />
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <button
-            onClick={() => setScreen("deserved")}
-            className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-            style={{ background: "#ff6161", color: "#fff" }}
-          >
-            I deserved this
-          </button>
-          <button
-            onClick={() => setScreen("didnt-use-ai")}
-            className="w-full rounded-2xl px-6 py-4 font-bold text-base border-2 transition-all hover:opacity-80"
-            style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
-          >
-            But I didn't use AI
-          </button>
-        </div>
-      </div>
-    </div>
+    <>
+      <audio ref={audioRef} src="/__mockup/boo.mp3" preload="auto" />
+      <button
+        onClick={() => setMuted((m) => !m)}
+        aria-label={muted ? "Unmute" : "Mute"}
+        style={{
+          position: "fixed",
+          top: 16,
+          right: 16,
+          zIndex: 99999,
+          width: 40,
+          height: 40,
+          borderRadius: "50%",
+          border: "none",
+          background: "rgba(255,255,255,0.15)",
+          backdropFilter: "blur(6px)",
+          cursor: "pointer",
+          fontSize: "1.1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#fff",
+        }}
+      >
+        {muted ? "🔇" : "🔊"}
+      </button>
+      {renderScreen()}
+    </>
   );
 }
