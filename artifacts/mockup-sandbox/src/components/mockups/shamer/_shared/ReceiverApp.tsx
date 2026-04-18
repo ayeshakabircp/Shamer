@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import Lottie from "lottie-react";
 import "./../_group.css";
 
 type ReceiverScreen =
@@ -8,62 +9,29 @@ type ReceiverScreen =
   | "but-you-did"
   | "never-wrong";
 
-interface Tomato {
-  id: number;
-  x: number;
-  startY: number;
-  scale: number;
-  opacity: number;
-  duration: number;
-  delay: number;
-  rotation: number;
-}
-
-function useTomatoes(count = 14) {
-  const [tomatoes] = useState<Tomato[]>(() =>
-    Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      startY: -20 - Math.random() * 30,
-      scale: 0.6 + Math.random() * 0.8,
-      opacity: 0.7 + Math.random() * 0.3,
-      duration: 2.5 + Math.random() * 2,
-      delay: Math.random() * 3,
-      rotation: -30 + Math.random() * 60,
-    }))
-  );
-  return tomatoes;
-}
-
 function TomatoSplash() {
-  const tomatoes = useTomatoes(14);
+  const [animData, setAnimData] = useState<object | null>(null);
+
+  useEffect(() => {
+    fetch("/__mockup/tomato-lottie.json")
+      .then((r) => r.json())
+      .then(setAnimData)
+      .catch(() => {});
+  }, []);
+
+  if (!animData) return null;
+
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {tomatoes.map((t) => (
-        <div
-          key={t.id}
-          className="absolute"
-          style={{
-            left: `${t.x}%`,
-            top: `${t.startY}%`,
-            fontSize: `${t.scale * 2.5}rem`,
-            opacity: t.opacity,
-            animation: `tomatoDrop ${t.duration}s ${t.delay}s ease-in infinite`,
-            transform: `rotate(${t.rotation}deg)`,
-          }}
-        >
-          🍅
-        </div>
-      ))}
-      <style>{`
-        @keyframes tomatoDrop {
-          0% { transform: rotate(${0}deg) translateY(0) scaleY(1); opacity: 0.9; }
-          70% { opacity: 0.85; }
-          90% { transform: rotate(15deg) translateY(110vh) scaleY(1); }
-          95% { transform: rotate(15deg) translateY(110vh) scaleY(0.4) scaleX(1.6); opacity: 0.6; }
-          100% { transform: rotate(15deg) translateY(115vh) scaleY(0); opacity: 0; }
-        }
-      `}</style>
+    <div
+      className="fixed inset-0 pointer-events-none overflow-hidden"
+      style={{ zIndex: 0 }}
+    >
+      <Lottie
+        animationData={animData}
+        loop
+        autoplay
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      />
     </div>
   );
 }
