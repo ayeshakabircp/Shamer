@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import Lottie from "lottie-react";
+import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import "./../_group.css";
 
 type ReceiverScreen =
@@ -9,7 +9,12 @@ type ReceiverScreen =
   | "but-you-did"
   | "never-wrong";
 
-function TomatoSplash() {
+interface TomatoSplashProps {
+  lottieRef: React.RefObject<LottieRefCurrentProps | null>;
+  onComplete: () => void;
+}
+
+function TomatoSplash({ lottieRef, onComplete }: TomatoSplashProps) {
   const [animData, setAnimData] = useState<object | null>(null);
 
   useEffect(() => {
@@ -27,9 +32,11 @@ function TomatoSplash() {
       style={{ zIndex: 0 }}
     >
       <Lottie
+        lottieRef={lottieRef}
         animationData={animData}
-        loop
+        loop={false}
         autoplay
+        onComplete={onComplete}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
     </div>
@@ -186,10 +193,15 @@ interface ReceiverAppProps {
 
 export function ReceiverApp({ shameText }: ReceiverAppProps) {
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
-  const [playing, setPlaying] = useState(false);
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [audioDone, setAudioDone] = useState(false);
+  const [animDone, setAnimDone] = useState(false);
   const [muted, setMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
   const deservedBtnRef = useRef<HTMLButtonElement>(null);
+
+  const bothDone = audioDone && animDone;
 
   const text =
     shameText || "Babe... did you just outsource your feelings to a robot? Gross.";
@@ -198,8 +210,8 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.7;
-    audio.play().then(() => setPlaying(true)).catch(() => {});
-    const onEnded = () => setPlaying(false);
+    audio.play().then(() => setAudioPlaying(true)).catch(() => {});
+    const onEnded = () => { setAudioPlaying(false); setAudioDone(true); };
     audio.addEventListener("ended", onEnded);
     return () => audio.removeEventListener("ended", onEnded);
   }, []);
@@ -211,15 +223,19 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   function handleAudioButton() {
     const audio = audioRef.current;
     if (!audio) return;
-    if (!playing) {
+    if (bothDone || (!audioPlaying && !audioDone)) {
+      // Replay (or first play if autoplay was blocked)
       audio.currentTime = 0;
-      audio.play().then(() => setPlaying(true)).catch(() => {});
+      audio.play().then(() => setAudioPlaying(true)).catch(() => {});
+      lottieRef.current?.goToAndPlay(0, true);
+      setAudioDone(false);
+      setAnimDone(false);
     } else {
       setMuted((m) => !m);
     }
   }
 
-  const audioIcon = !playing ? "▶" : muted ? "🔇" : "🔊";
+  const audioIcon = bothDone ? "↺" : !audioPlaying && !audioDone ? "▶" : muted ? "🔇" : "🔊";
 
   function renderScreen() {
     if (screen === "deserved") {
@@ -294,10 +310,10 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
 
     return (
       <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden shamer-bg-dark">
-        <TomatoSplash />
+        <TomatoSplash lottieRef={lottieRef} onComplete={() => setAnimDone(true)} />
         <button
           onClick={handleAudioButton}
-          aria-label={!playing ? "Play sound" : muted ? "Unmute" : "Mute"}
+          aria-label={bothDone ? "Replay" : !audioPlaying && !audioDone ? "Play" : muted ? "Unmute" : "Mute"}
           style={{
             position: "fixed",
             top: 16,
