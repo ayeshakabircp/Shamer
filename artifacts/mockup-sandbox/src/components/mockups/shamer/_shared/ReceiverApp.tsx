@@ -225,11 +225,27 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   const text =
     shameText || "Babe... did you just outsource your feelings to a robot? Gross.";
 
+  const playedRef = useRef(false);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.7;
-    audio.play().catch(() => {});
+
+    function tryPlay() {
+      if (playedRef.current) return;
+      playedRef.current = true;
+      audio!.play().catch(() => {});
+      document.removeEventListener("click", tryPlay);
+      document.removeEventListener("touchstart", tryPlay);
+    }
+
+    document.addEventListener("click", tryPlay);
+    document.addEventListener("touchstart", tryPlay);
+    return () => {
+      document.removeEventListener("click", tryPlay);
+      document.removeEventListener("touchstart", tryPlay);
+    };
   }, []);
 
   useEffect(() => {
@@ -310,6 +326,30 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
     return (
       <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden shamer-bg-dark">
         <TomatoSplash />
+        <button
+          onClick={() => setMuted((m) => !m)}
+          aria-label={muted ? "Unmute" : "Mute"}
+          style={{
+            position: "fixed",
+            top: 16,
+            right: 16,
+            zIndex: 99999,
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            border: "none",
+            background: "rgba(255,255,255,0.15)",
+            backdropFilter: "blur(6px)",
+            cursor: "pointer",
+            fontSize: "1.1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+          }}
+        >
+          {muted ? "🔇" : "🔊"}
+        </button>
         <div className="relative z-10 w-full max-w-sm">
           <h1
             className="shamer-font-display font-black mb-4 uppercase text-center"
@@ -345,30 +385,6 @@ export function ReceiverApp({ shameText }: ReceiverAppProps) {
   return (
     <>
       <audio ref={audioRef} src="/__mockup/boo.mp3" preload="auto" />
-      <button
-        onClick={() => setMuted((m) => !m)}
-        aria-label={muted ? "Unmute" : "Mute"}
-        style={{
-          position: "fixed",
-          top: 16,
-          right: 16,
-          zIndex: 99999,
-          width: 40,
-          height: 40,
-          borderRadius: "50%",
-          border: "none",
-          background: "rgba(255,255,255,0.15)",
-          backdropFilter: "blur(6px)",
-          cursor: "pointer",
-          fontSize: "1.1rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#fff",
-        }}
-      >
-        {muted ? "🔇" : "🔊"}
-      </button>
       {renderScreen()}
     </>
   );
