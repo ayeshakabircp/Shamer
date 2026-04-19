@@ -191,20 +191,40 @@ interface ReceiverAppProps {
   shameText?: string;
 }
 
-export function ReceiverApp({ shameText }: ReceiverAppProps) {
+export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [audioDone, setAudioDone] = useState(false);
   const [animDone, setAnimDone] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [liveShameText, setLiveShameText] = useState<string | undefined>(initialShameText);
   const audioRef = useRef<HTMLAudioElement>(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const deservedBtnRef = useRef<HTMLButtonElement>(null);
 
+  useEffect(() => {
+    const ch = new BroadcastChannel("shamer-preview");
+    ch.onmessage = (e) => {
+      if (e.data?.type === "preview-shame") {
+        setLiveShameText(e.data.text);
+        setScreen("shame");
+        setAudioDone(false);
+        setAnimDone(false);
+        const audio = audioRef.current;
+        if (audio) {
+          audio.currentTime = 0;
+          audio.play().then(() => setAudioPlaying(true)).catch(() => {});
+        }
+        lottieRef.current?.goToAndPlay(0, true);
+      }
+    };
+    return () => ch.close();
+  }, []);
+
   const bothDone = audioDone && animDone;
 
   const text =
-    shameText || "Babe... did you just outsource your feelings to a robot? Gross.";
+    liveShameText || "Babe... did you just outsource your feelings to a robot? Gross.";
 
   useEffect(() => {
     const audio = audioRef.current;

@@ -96,7 +96,9 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
             className="rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
             style={{ background: "#ff6161", color: "#fff" }}
             onClick={() => {
-              const msg = encodeURIComponent(displayText);
+              const ch = new BroadcastChannel("shamer-preview");
+              ch.postMessage({ type: "preview-shame", text: displayText });
+              ch.close();
               window.parent.postMessage({ type: "preview-shame", text: displayText }, "*");
             }}
           >
