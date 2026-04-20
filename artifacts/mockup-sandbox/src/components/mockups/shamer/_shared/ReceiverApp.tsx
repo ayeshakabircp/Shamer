@@ -49,10 +49,9 @@ function BouncingThumbsDown() {
       style={{
         display: "inline-block",
         animation: "thumbBounce 1.2s ease-in-out infinite",
-        fontSize: "3rem",
       }}
     >
-      👎
+      <img src="/__mockup/thumbs-down.png" alt="Thumbs down" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} />
       <style>{`
         @keyframes thumbBounce {
           0%, 100% { transform: translateY(0); }
