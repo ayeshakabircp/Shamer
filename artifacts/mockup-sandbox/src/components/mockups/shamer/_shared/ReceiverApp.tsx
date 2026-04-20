@@ -302,7 +302,7 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
     if (screen === "never-wrong") {
       return (
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative">
-          <div className="text-5xl mb-6">⚖️</div>
+          <div className="mb-6"><img src="/__mockup/fist.png" alt="Fist" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} /></div>
           <h2
             className="shamer-font-h2 mb-4 leading-tight"
             style={{ fontSize: "52px", color: "#F51818" }}
