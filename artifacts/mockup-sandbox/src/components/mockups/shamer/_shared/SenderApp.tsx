@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import "./../_group.css";
 
 const SHAME_TEMPLATES = [
@@ -21,7 +21,7 @@ function generateFakeLink() {
   return `share.me/${adj}-${noun}-${code}`;
 }
 
-export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string }) {
+export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
   const [screen, setScreen] = useState<Screen>("home");
   const [templateIndex, setTemplateIndex] = useState(0);
   const [customText, setCustomText] = useState("");
@@ -62,13 +62,14 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
 
   if (screen === "link") {
     return (
-      <div
-        className={`shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center ${bgClass}`}
-      >
+      <div className={`shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center ${bgClass}`}>
         <div className="mb-6">
           <span className="text-5xl">🔗</span>
         </div>
-        <h2 className="shamer-font-display text-3xl font-black mb-2" style={{ color: "#1A1A1A" }}>
+        <h2
+          className="shamer-font-h2 mb-2 leading-tight"
+          style={{ fontSize: "52px", color: "#F51818" }}
+        >
           Your shame link is ready.
         </h2>
         <p className="text-sm mb-8" style={{ color: "#666" }}>
@@ -77,10 +78,11 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
 
         <button
           onClick={handleCopy}
-          className="w-full max-w-sm rounded-2xl px-6 py-4 text-left font-mono text-sm break-all border-2 transition-all"
+          className="w-full max-w-sm px-6 py-4 text-left font-mono text-sm break-all border-2 transition-all"
           style={{
-            background: copied ? "#1A1A1A" : "#fff",
-            borderColor: "#1A1A1A",
+            borderRadius: "50px",
+            background: copied ? "#ad0d00" : "#fff",
+            borderColor: "#F3AB93",
             color: copied ? "#fff" : "#1A1A1A",
           }}
         >
@@ -93,8 +95,7 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
 
         <div className="flex flex-col gap-3 w-full max-w-sm">
           <button
-            className="rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-            style={{ background: "#ff6161", color: "#fff" }}
+            className="shamer-btn-primary w-full px-6 py-4 text-base"
             onClick={() => {
               const ch = new BroadcastChannel("shamer-preview");
               ch.postMessage({ type: "preview-shame", text: displayText });
@@ -105,8 +106,7 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
             Preview Shame
           </button>
           <button
-            className="rounded-2xl px-6 py-4 font-bold text-base border-2 transition-all hover:opacity-80"
-            style={{ borderColor: "#1A1A1A", color: "#1A1A1A", background: "transparent" }}
+            className="shamer-btn-secondary w-full px-6 py-4 text-base"
             onClick={() => {
               setScreen("home");
               setCustomText("");
@@ -121,25 +121,26 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
   }
 
   return (
-    <div
-      className={`shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 ${bgClass}`}
-    >
+    <div className={`shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 ${bgClass}`}>
       <div className="w-full max-w-sm text-center">
-        <h1 className="shamer-font-display font-black mb-3 leading-tight" style={{ fontSize: "64px", color: "#1A1A1A" }}>
+        <h1
+          className="shamer-font-display mb-3 leading-tight"
+          style={{ fontSize: "64px", color: "#F51818" }}
+        >
           Were you just<br />AI-ed?
         </h1>
 
-        <p className="mb-8 leading-relaxed text-[#262626]" style={{ fontSize: "16px", color: "#444" }}>
+        <p className="mb-8 leading-relaxed" style={{ fontSize: "16px", color: "#444" }}>
           There are some places AI just doesn't belong.
           If you're here, you're probably a victim.
           Go ahead, <strong>SHAME THEM.</strong>
         </p>
 
-        <p className="text-xs mb-3 text-[#474545]" style={{ color: "#999" }}>Pick a template or write your own</p>
+        <p className="text-xs mb-3" style={{ color: "#999" }}>Pick a template or write your own</p>
 
         <div
           className="rounded-3xl p-4 mb-8 border-2"
-          style={{ background: "#fff", borderColor: "#E5DDD5" }}
+          style={{ background: "#fff", borderColor: "#F3AB93" }}
         >
           <textarea
             ref={textareaRef}
@@ -157,11 +158,11 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
           />
 
           {!useCustom && (
-            <div className="flex items-center justify-between mt-3 pt-3 border-t" style={{ borderColor: "#E5DDD5" }}>
+            <div className="flex items-center justify-between mt-3 pt-3 border-t" style={{ borderColor: "#F3AB93" }}>
               <button
                 onClick={handlePrev}
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-70"
-                style={{ background: "#F0EBE5", color: "#1A1A1A" }}
+                style={{ background: "#FFECE3", color: "#ad0d00" }}
               >
                 ←
               </button>
@@ -171,7 +172,7 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
               <button
                 onClick={handleNext}
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-70"
-                style={{ background: "#F0EBE5", color: "#1A1A1A" }}
+                style={{ background: "#FFECE3", color: "#ad0d00" }}
               >
                 →
               </button>
@@ -192,8 +193,7 @@ export function SenderApp({ bgClass = "shamer-bg-light" }: { bgClass?: string })
         <button
           onClick={handleGenerate}
           disabled={!displayText.trim()}
-          className="w-full rounded-2xl px-6 py-4 text-base transition-all hover:opacity-90 disabled:opacity-40 border-t-[#b8b8b8] border-r-[#b8b8b8] border-b-[#b8b8b8] border-l-[#b8b8b8] border-t-[0.5px] border-r-[0.5px] border-b-[0.5px] border-l-[0.5px] rounded-tl-[8px] rounded-tr-[8px] rounded-br-[8px] rounded-bl-[8px] font-semibold bg-[#ff6161]"
-          style={{ background: "#ff6161", color: "#fff" }}
+          className="shamer-btn-primary w-full px-6 py-4 text-base"
         >
           Generate Shame Link
         </button>

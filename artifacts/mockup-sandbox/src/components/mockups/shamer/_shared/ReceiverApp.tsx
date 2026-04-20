@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import "./../_group.css";
 
@@ -244,7 +244,6 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
     const audio = audioRef.current;
     if (!audio) return;
     if (bothDone || (!audioPlaying && !audioDone)) {
-      // Replay (or first play if autoplay was blocked)
       audio.currentTime = 0;
       audio.play().then(() => setAudioPlaying(true)).catch(() => {});
       lottieRef.current?.goToAndPlay(0, true);
@@ -260,18 +259,20 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
   function renderScreen() {
     if (screen === "deserved") {
       return (
-        <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark">
+        <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center">
           <div className="text-5xl mb-6">✅</div>
-          <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
+          <h2
+            className="shamer-font-h2 mb-4 leading-tight"
+            style={{ fontSize: "52px", color: "#F51818" }}
+          >
             Apology accepted.
           </h2>
-          <p className="text-base mb-10" style={{ color: "#aaa" }}>
+          <p className="text-base mb-10" style={{ color: "#666" }}>
             Do better next time.
           </p>
           <button
             onClick={() => setScreen("shame")}
-            className="rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-            style={{ background: "#ff6161", color: "#fff" }}
+            className="shamer-btn-primary px-6 py-4 text-base"
           >
             Shame Someone Else
           </button>
@@ -281,15 +282,17 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
 
     if (screen === "didnt-use-ai") {
       return (
-        <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center shamer-bg-dark">
+        <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center">
           <div className="text-5xl mb-6">🤔</div>
-          <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
+          <h2
+            className="shamer-font-h2 mb-8 leading-tight"
+            style={{ fontSize: "52px", color: "#F51818" }}
+          >
             But you did.
           </h2>
           <button
             onClick={() => setScreen("never-wrong")}
-            className="w-full max-w-xs rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-            style={{ background: "#ff6161", color: "#fff" }}
+            className="shamer-btn-primary w-full max-w-xs px-6 py-4 text-base"
           >
             No I didn't!
           </button>
@@ -299,20 +302,22 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
 
     if (screen === "never-wrong") {
       return (
-        <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative shamer-bg-dark">
+        <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative">
           <div className="text-5xl mb-6">⚖️</div>
-          <h2 className="shamer-font-display text-3xl font-black mb-4 text-white leading-tight">
+          <h2
+            className="shamer-font-h2 mb-4 leading-tight"
+            style={{ fontSize: "52px", color: "#F51818" }}
+          >
             The person who sent this to you is never wrong.
           </h2>
-          <p className="text-sm mb-8" style={{ color: "#aaa" }}>
+          <p className="text-sm mb-8" style={{ color: "#666" }}>
             Accept your shame.
           </p>
           <div className="flex flex-col gap-4 w-full max-w-xs items-center">
             <button
               ref={deservedBtnRef}
               onClick={() => setScreen("deserved")}
-              className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-              style={{ background: "#ff6161", color: "#fff" }}
+              className="shamer-btn-primary w-full px-6 py-4 text-base"
             >
               I deserved this
             </button>
@@ -321,15 +326,14 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
             label="No I won't!"
             onClick={() => {}}
             anchorRef={deservedBtnRef}
-            className="rounded-2xl px-6 py-3 font-bold text-sm border-2"
-            style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
+            className="shamer-btn-secondary px-6 py-3 text-sm"
           />
         </div>
       );
     }
 
     return (
-      <div className="shamer-font-body min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden shamer-bg-dark">
+      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden">
         <TomatoSplash lottieRef={lottieRef} onComplete={() => setAnimDone(true)} />
         <button
           onClick={handleAudioButton}
@@ -342,25 +346,26 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
             width: 40,
             height: 40,
             borderRadius: "50%",
-            border: "none",
-            background: "rgba(255,255,255,0.15)",
-            backdropFilter: "blur(6px)",
+            border: "1.5px solid #F3AB93",
+            background: "#FFECE3",
             cursor: "pointer",
             fontSize: "1.1rem",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#fff",
+            color: "#ad0d00",
           }}
         >
           {audioIcon}
         </button>
         <div className="relative z-10 w-full max-w-sm">
           <h1
-            className="shamer-font-display font-black mb-4 uppercase text-center"
-            style={{ fontSize: "64px", color: "#ff6161", lineHeight: 1.1 }}
-          >You've been shamed!</h1>
-          <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#ddd" }}>
+            className="shamer-font-display mb-4 uppercase text-center"
+            style={{ fontSize: "64px", color: "#F51818", lineHeight: 1.1 }}
+          >
+            You've been shamed!
+          </h1>
+          <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#444" }}>
             {text}
           </p>
           <div className="mb-8">
@@ -369,15 +374,13 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
           <div className="flex flex-col gap-3">
             <button
               onClick={() => setScreen("deserved")}
-              className="w-full rounded-2xl px-6 py-4 font-bold text-base transition-all hover:opacity-90"
-              style={{ background: "#ff6161", color: "#fff" }}
+              className="shamer-btn-primary w-full px-6 py-4 text-base"
             >
               I deserved this
             </button>
             <button
               onClick={() => setScreen("didnt-use-ai")}
-              className="w-full rounded-2xl px-6 py-4 font-bold text-base border-2 transition-all hover:opacity-80"
-              style={{ borderColor: "#555", color: "#fff", background: "transparent" }}
+              className="shamer-btn-secondary w-full px-6 py-4 text-base"
             >
               But I didn't use AI
             </button>

@@ -1,27 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+@font-face {
+  font-family: 'Chauncy Pro';
+  font-weight: 700;
+  font-style: normal;
+  src: url('/__mockup/fonts/ChauncyPro-Bold.woff2') format('woff2'),
+       url('/__mockup/fonts/ChauncyPro-Bold.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chauncy Pro';
+  font-weight: 400;
+  font-style: normal;
+  src: url('/__mockup/fonts/ChauncyPro-Regular.woff2') format('woff2'),
+       url('/__mockup/fonts/ChauncyPro-Regular.woff') format('woff');
+  font-display: swap;
+}
 
 .shamer-font-display {
-  font-family: 'Shadows Into Light', cursive;
+  font-family: 'Chauncy Pro', 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+}
+
+.shamer-font-h2 {
+  font-family: 'Chauncy Pro', 'Playfair Display', Georgia, serif;
+  font-weight: 400;
 }
 
 .shamer-font-body {
-  font-family: 'Hanken Grotesk', sans-serif;
+  font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.shamer-bg {
+  background-color: #FCF4F0;
 }
 
 .shamer-bg-light {
-  background-color: #FFF7F0;
-  background-image:
-    linear-gradient(rgba(255, 247, 240, 0.9), rgba(255, 247, 240, 0.9)),
-    url('/__mockup/halftone-texture.jpg');
-  background-size: cover;
-  background-position: center;
+  background-color: #FCF4F0;
 }
 
 .shamer-bg-dark {
-  background-color: #1A1A1A;
-  background-image:
-    linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.9)),
-    url('/__mockup/halftone-texture.jpg');
-  background-size: cover;
-  background-position: center;
+  background-color: #FCF4F0;
+}
+
+.shamer-btn-primary {
+  background: #f3ab93;
+  border: none;
+  color: #ad0d00;
+  border-radius: 50px;
+  font-family: 'Chauncy Pro', 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.shamer-btn-primary:hover {
+  opacity: 0.88;
+}
+
+.shamer-btn-primary:disabled {
+  opacity: 0.4;
+}
+
+.shamer-btn-secondary {
+  background: #FFECE3;
+  border: 1.5px solid #F3AB93;
+  color: #ad0d00;
+  border-radius: 50px;
+  font-family: 'Chauncy Pro', 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.shamer-btn-secondary:hover {
+  opacity: 0.85;
 }
