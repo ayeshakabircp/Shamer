@@ -193,7 +193,7 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
         <button
           onClick={handleGenerate}
           disabled={!displayText.trim()}
-          className="shamer-btn-primary w-full px-6 py-4 text-base"
+          className="shamer-btn-primary w-full px-6 py-4 text-base rounded-tl-[24px] rounded-tr-[24px] rounded-br-[24px] rounded-bl-[24px]"
         >
           Generate Shame Link
         </button>
