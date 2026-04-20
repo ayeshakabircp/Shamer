@@ -64,7 +64,7 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
     return (
       <div className={`shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center ${bgClass}`}>
         <div className="mb-6">
-          <span className="text-5xl">🔗</span>
+          <img src="/__mockup/thumbs-up.png" alt="Thumbs up" style={{ width: "100px", height: "100px", objectFit: "contain" }} />
         </div>
         <h2
           className="shamer-font-h2 mb-2 leading-tight"
