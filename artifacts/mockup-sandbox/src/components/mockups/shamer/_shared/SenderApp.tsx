@@ -89,7 +89,7 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
           {copied ? "✓ Copied!" : shameLink}
         </button>
 
-        <p className="text-xs mt-2 mb-8" style={{ color: "#999" }}>
+        <p className="text-xs mt-2 mb-8" style={{ color: "#995a5a" }}>
           tap to copy
         </p>
 
@@ -137,7 +137,7 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
           Go ahead, <strong>SHAME THEM.</strong>
         </p>
 
-        <p className="text-xs mb-3 text-[#662e2e]" style={{ color: "#999" }}>Pick a template or write your own</p>
+        <p className="text-xs mb-3 text-[#662e2e]" style={{ color: "#995a5a" }}>Pick a template or write your own</p>
 
         <div
           className="rounded-3xl p-4 mb-8 border-2"
@@ -167,7 +167,7 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
               >
                 ←
               </button>
-              <span className="text-xs" style={{ color: "#999" }}>
+              <span className="text-xs" style={{ color: "#995a5a" }}>
                 {templateIndex + 1} of {SHAME_TEMPLATES.length} templates
               </span>
               <button
@@ -184,7 +184,7 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
             <button
               onClick={() => { setUseCustom(false); setCustomText(""); }}
               className="mt-2 text-xs underline"
-              style={{ color: "#999" }}
+              style={{ color: "#995a5a" }}
             >
               use a template instead
             </button>
