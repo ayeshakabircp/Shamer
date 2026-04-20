@@ -125,7 +125,7 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
       <div className="flex-1 flex items-center justify-center w-full">
       <div className="w-full max-w-sm text-center">
         <h1
-          className="shamer-font-display mb-3 leading-tight"
+          className="shamer-font-display mb-3 leading-tight uppercase"
           style={{ fontSize: "64px", color: "#F51818" }}
         >
           Were you just<br />AI-ed?
