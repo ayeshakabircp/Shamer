@@ -14,16 +14,15 @@
   font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
 }
 
-.shamer-bg {
-  background-color: #FCF4F0;
-}
-
-.shamer-bg-light {
-  background-color: #FCF4F0;
-}
-
+.shamer-bg,
+.shamer-bg-light,
 .shamer-bg-dark {
   background-color: #FCF4F0;
+  background-image:
+    linear-gradient(rgba(252, 244, 240, 0.7), rgba(252, 244, 240, 0.7)),
+    url('/__mockup/texture.jpeg');
+  background-size: cover;
+  background-position: center;
 }
 
 .shamer-btn-primary {
