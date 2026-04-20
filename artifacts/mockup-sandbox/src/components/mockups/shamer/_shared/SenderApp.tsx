@@ -121,7 +121,8 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
   }
 
   return (
-    <div className={`shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 ${bgClass}`}>
+    <div className={`shamer-font-body shamer-bg min-h-screen flex flex-col items-center p-10 ${bgClass}`}>
+      <div className="flex-1 flex items-center justify-center w-full">
       <div className="w-full max-w-sm text-center">
         <h1
           className="shamer-font-display mb-3 leading-tight"
@@ -198,6 +199,8 @@ export function SenderApp({ bgClass = "" }: { bgClass?: string }) {
           Generate Shame Link
         </button>
       </div>
+      </div>
+      <p style={{ fontSize: "12px", color: "#8f4040" }}>AI-built AI shamer.</p>
     </div>
   );
 }
