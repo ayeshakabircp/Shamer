@@ -259,7 +259,7 @@ export function ReceiverApp({ shameText: initialShameText }: ReceiverAppProps) {
     if (screen === "deserved") {
       return (
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center">
-          <div className="text-5xl mb-6">✅</div>
+          <div className="mb-6"><img src="/__mockup/check-thumbs.png" alt="Thumbs up" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} /></div>
           <h2
             className="shamer-font-h2 mb-4 leading-tight"
             style={{ fontSize: "52px", color: "#F51818" }}
