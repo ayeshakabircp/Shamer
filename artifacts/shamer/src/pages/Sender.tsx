@@ -191,7 +191,7 @@ export default function Sender() {
           </button>
         </div>
       </div>
-      <p style={{ fontSize: "12px", color: "#8f4040" }}>AI-built AI shamer.</p>
+      <p style={{ fontSize: "12px", color: "#8f4040" }} className="font-bold">AI-built AI shamer.</p>
     </div>
   );
 }
