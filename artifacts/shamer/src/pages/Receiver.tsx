@@ -9,6 +9,32 @@ type ReceiverScreen =
   | "didnt-use-ai"
   | "never-wrong";
 
+function Nav() {
+  return (
+    <nav style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      height: "56px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "0 24px",
+      background: "#FCF4F0",
+      zIndex: 1000,
+    }}>
+      <a
+        href="/"
+        style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none" }}
+      >
+        <span style={{ fontSize: "20px" }}>🍅</span>
+        <span className="shamer-font-display" style={{ fontSize: "24px", color: "#F51818" }}>SHAMER</span>
+      </a>
+    </nav>
+  );
+}
+
 function TomatoSplash({
   lottieRef,
   onComplete,
@@ -216,75 +242,85 @@ export default function Receiver() {
 
   if (screen === "deserved") {
     return (
-      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center">
-        <div className="mb-6">
-          <img src="/check-thumbs.png" alt="Check" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} />
+      <>
+        <Nav />
+        <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center" style={{ paddingTop: "56px" }}>
+          <div className="mb-6">
+            <img src="/check-thumbs.png" alt="Check" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} />
+          </div>
+          <h2 className="shamer-font-h2 mb-4 leading-tight" style={{ fontSize: "52px", color: "#F51818" }}>
+            Apology accepted.
+          </h2>
+          <p className="text-base mb-10" style={{ color: "#666" }}>
+            Do better next time.
+          </p>
+          <button onClick={() => setScreen("shame")} className="shamer-btn-primary px-6 py-4 text-base">
+            Shame Someone Else
+          </button>
         </div>
-        <h2 className="shamer-font-h2 mb-4 leading-tight" style={{ fontSize: "52px", color: "#F51818" }}>
-          Apology accepted.
-        </h2>
-        <p className="text-base mb-10" style={{ color: "#666" }}>
-          Do better next time.
-        </p>
-        <button onClick={() => setScreen("shame")} className="shamer-btn-primary px-6 py-4 text-base">
-          Shame Someone Else
-        </button>
-      </div>
+      </>
     );
   }
 
   if (screen === "didnt-use-ai") {
     return (
-      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center">
-        <div className="mb-6">
-          <img src="/finger-point.png" alt="Pointing finger" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} />
+      <>
+        <Nav />
+        <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center" style={{ paddingTop: "56px" }}>
+          <div className="mb-6">
+            <img src="/finger-point.png" alt="Pointing finger" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} />
+          </div>
+          <h2 className="shamer-font-h2 mb-8 leading-tight" style={{ fontSize: "52px", color: "#F51818" }}>
+            But you did.
+          </h2>
+          <button
+            onClick={() => setScreen("never-wrong")}
+            className="shamer-btn-primary w-full max-w-xs px-6 py-4 text-base"
+          >
+            No I didn't!
+          </button>
         </div>
-        <h2 className="shamer-font-h2 mb-8 leading-tight" style={{ fontSize: "52px", color: "#F51818" }}>
-          But you did.
-        </h2>
-        <button
-          onClick={() => setScreen("never-wrong")}
-          className="shamer-btn-primary w-full max-w-xs px-6 py-4 text-base"
-        >
-          No I didn't!
-        </button>
-      </div>
+      </>
     );
   }
 
   if (screen === "never-wrong") {
     return (
-      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative">
-        <div className="mb-6">
-          <img src="/fist.png" alt="Fist" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} />
+      <>
+        <Nav />
+        <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative" style={{ paddingTop: "56px" }}>
+          <div className="mb-6">
+            <img src="/fist.png" alt="Fist" style={{ width: "3rem", height: "3rem", objectFit: "contain" }} />
+          </div>
+          <h2 className="shamer-font-h2 mb-4 leading-tight" style={{ fontSize: "52px", color: "#F51818" }}>
+            The person who sent this to you is never wrong.
+          </h2>
+          <p className="text-sm mb-8" style={{ color: "#666" }}>Accept your shame.</p>
+          <div className="flex flex-col gap-4 w-full max-w-xs items-center">
+            <button
+              ref={deservedBtnRef}
+              onClick={() => setScreen("deserved")}
+              className="shamer-btn-primary w-full px-6 py-4 text-base"
+            >
+              I deserved this
+            </button>
+          </div>
+          <WiggleButton
+            label="No I won't!"
+            onClick={() => {}}
+            anchorRef={deservedBtnRef}
+            className="shamer-btn-secondary px-6 py-3 text-sm"
+          />
         </div>
-        <h2 className="shamer-font-h2 mb-4 leading-tight" style={{ fontSize: "52px", color: "#F51818" }}>
-          The person who sent this to you is never wrong.
-        </h2>
-        <p className="text-sm mb-8" style={{ color: "#666" }}>Accept your shame.</p>
-        <div className="flex flex-col gap-4 w-full max-w-xs items-center">
-          <button
-            ref={deservedBtnRef}
-            onClick={() => setScreen("deserved")}
-            className="shamer-btn-primary w-full px-6 py-4 text-base"
-          >
-            I deserved this
-          </button>
-        </div>
-        <WiggleButton
-          label="No I won't!"
-          onClick={() => {}}
-          anchorRef={deservedBtnRef}
-          className="shamer-btn-secondary px-6 py-3 text-sm"
-        />
-      </div>
+      </>
     );
   }
 
   return (
     <>
+      <Nav />
       <audio ref={audioRef} src="/boo.mp3" preload="auto" />
-      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden">
+      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden" style={{ paddingTop: "56px" }}>
         <TomatoSplash lottieRef={lottieRef} onComplete={() => setAnimDone(true)} />
         <button
           onClick={handleAudioButton}
