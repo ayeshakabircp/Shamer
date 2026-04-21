@@ -14,11 +14,24 @@
 
 .shamer-bg {
   background-color: #FCF4F0;
-  background-image:
-    linear-gradient(rgba(252, 244, 240, 0.7), rgba(252, 244, 240, 0.7)),
-    url('/texture.jpeg');
+  position: relative;
+}
+
+.shamer-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/bg-texture.jpg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.shamer-bg > * {
+  position: relative;
+  z-index: 1;
 }
 
 .shamer-btn-primary {
