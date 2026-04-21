@@ -29,7 +29,7 @@ function Nav({ showLetterIcon, onLogoClick }: { showLetterIcon: boolean; onLogoC
       alignItems: "center",
       justifyContent: "space-between",
       padding: "0 24px",
-      background: "#FCF4F0",
+      background: "transparent",
       zIndex: 1000,
     }}>
       <button
