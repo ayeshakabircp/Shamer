@@ -67,6 +67,29 @@ function TomatoSplash({
   );
 }
 
+function EggSplash() {
+  const [animData, setAnimData] = useState<object | null>(null);
+
+  useEffect(() => {
+    fetch("/Eggss.json")
+      .then((r) => r.json())
+      .then(setAnimData)
+      .catch(() => {});
+  }, []);
+
+  if (!animData) return null;
+
+  return (
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Lottie
+        animationData={animData}
+        loop={true}
+        style={{ width: 300, height: 300 }}
+      />
+    </div>
+  );
+}
+
 function BouncingThumbsDown() {
   return (
     <div style={{ display: "inline-block", animation: "thumbBounce 1.2s ease-in-out infinite" }}>
@@ -198,6 +221,7 @@ export default function Receiver() {
       return "Babe... did you just outsource your feelings to a robot? Gross.";
     }
   })();
+  const selectedWeapon = params.get("w") ?? "🍅";
 
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
   const [audioPlaying, setAudioPlaying] = useState(false);
@@ -209,6 +233,10 @@ export default function Receiver() {
   const deservedBtnRef = useRef<HTMLButtonElement>(null);
 
   const bothDone = audioDone && animDone;
+
+  useEffect(() => {
+    if (selectedWeapon === "🥚") setAnimDone(true);
+  }, [selectedWeapon]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -321,7 +349,10 @@ export default function Receiver() {
       <Nav />
       <audio ref={audioRef} src="/boo.mp3" preload="auto" />
       <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden" style={{ paddingTop: "56px" }}>
-        <TomatoSplash lottieRef={lottieRef} onComplete={() => setAnimDone(true)} />
+        {selectedWeapon === "🥚"
+          ? <EggSplash />
+          : <TomatoSplash lottieRef={lottieRef} onComplete={() => setAnimDone(true)} />
+        }
         <button
           onClick={handleAudioButton}
           aria-label={bothDone ? "Replay" : !audioPlaying && !audioDone ? "Play" : muted ? "Unmute" : "Mute"}
