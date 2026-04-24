@@ -21,7 +21,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/bg-texture.jpg');
+  background-image: url('/bg-texture.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

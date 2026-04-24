@@ -1,20 +1,23 @@
 import { useState, useRef } from "react";
 import "../shamer.css";
+import { supabase } from "../lib/supabase";
+import { nanoid } from "nanoid";
 
 const SHAME_TEMPLATES = [
   "Babe... did you just outsource your feelings to a robot? Gross.",
   "Uncle Frank. That joke wasn't yours. We know. The whole chat knows.",
   "Another Monday. Another 'thought leadership' post written by a robot pretending to be you. Definitely original.",
-  "Sir that is not you in that photo. You are not that symmetrical. Be for real",
-  "Do better",
-  "It's giving ctrl+C, ctrl+V. Give me a break Jessica",
+  "Sir that is not you in that photo. You are not that symmetrical. Be for real.",
+  "Do better.",
+  "It's giving ctrl+C, ctrl+V. Give me a break Jessica.",
 ];
 
 type Screen = "home" | "link";
 
-function generateShameLink(shameText: string): string {
-  const encoded = btoa(encodeURIComponent(shameText));
-  return `${window.location.origin}/shame?t=${encoded}`;
+async function generateShameLink(shameText: string, weapon: string): Promise<string> {
+  const id = nanoid(6);
+  await supabase.from("shames").insert({ id, message: shameText, weapon });
+  return `${window.location.origin}/s/${id}`;
 }
 
 function Nav({ showLetterIcon, onLogoClick }: { showLetterIcon: boolean; onLogoClick: () => void }) {
@@ -24,7 +27,7 @@ function Nav({ showLetterIcon, onLogoClick }: { showLetterIcon: boolean; onLogoC
       top: 0,
       left: 0,
       right: 0,
-      height: "56px",
+      height: "72px",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -34,13 +37,15 @@ function Nav({ showLetterIcon, onLogoClick }: { showLetterIcon: boolean; onLogoC
     }}>
       <button
         onClick={onLogoClick}
-        style={{ display: "flex", alignItems: "center", gap: "6px", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+        style={{ display: "flex", alignItems: "center", gap: "6px", background: "none", border: "none", cursor: "pointer", padding: 2 }}
       >
         <span style={{ fontSize: "20px" }}>🍅</span>
         <span className="shamer-font-display" style={{ fontSize: "24px", color: "#F51818" }}>SHAMER</span>
       </button>
       {showLetterIcon && (
-        <img src="/love-letter.svg" height={28} alt="" />
+      <a href="/story">
+        <img src="/love-letter.svg" height={28} alt="Our story" style={{ width: 28, height: 28, display: "block" }} />
+      </a>
       )}
     </nav>
   );
@@ -53,6 +58,7 @@ export default function Sender() {
   const [useCustom, setUseCustom] = useState(false);
   const [shameLink, setShameLink] = useState("");
   const [copied, setCopied] = useState(false);
+  const [selectedWeapon, setSelectedWeapon] = useState("🍅");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const currentTemplate = SHAME_TEMPLATES[templateIndex];
@@ -68,8 +74,8 @@ export default function Sender() {
     setTemplateIndex((i) => (i + 1) % SHAME_TEMPLATES.length);
   }
 
-  function handleGenerate() {
-    const link = generateShameLink(displayText);
+  async function handleGenerate() {
+    const link = await generateShameLink(displayText, selectedWeapon);
     setShameLink(link);
     setScreen("link");
   }
@@ -91,7 +97,7 @@ export default function Sender() {
         <Nav showLetterIcon={false} onLogoClick={() => setScreen("home")} />
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center" style={{ paddingTop: "56px" }}>
           <div className="mb-6">
-            <img src="/thumbs-up.png" alt="Thumbs up" style={{ width: "100px", height: "100px", objectFit: "contain" }} />
+            <img src="/thumbs-up.png" alt="Thumbs up" style={{ width: "50px", height: "50px", objectFit: "contain" }} />
           </div>
           <h2
             className="shamer-font-h2 mb-2 leading-tight"
@@ -99,7 +105,7 @@ export default function Sender() {
           >
             Your shame link is ready.
           </h2>
-          <p className="text-sm mb-8" style={{ color: "#666" }}>
+          <p className="text-sm mb-8" style={{ color: "#444" }}>
             Totally innocent looking. They'll never see it coming.
           </p>
 
@@ -159,7 +165,7 @@ export default function Sender() {
             <p className="mb-8 leading-relaxed" style={{ fontSize: "16px", color: "#444" }}>
               There are some places AI just doesn't belong.
               If you're here, you're probably a victim.
-              Go ahead, <strong>SHAME THEM.</strong>
+              Go ahead, <strong>shame them.</strong>
             </p>
 
             <p className="text-xs mb-3" style={{ color: "#995a5a" }}>Pick a template or write your own</p>
@@ -214,6 +220,41 @@ export default function Sender() {
                   use a template instead
                 </button>
               )}
+            </div>
+
+            <div style={{ marginBottom: "24px" }}>
+              <p style={{ fontSize: "14px", color: "#995a5a", marginBottom: "12px", fontWeight: 600 }}>
+                Pick your weapon
+              </p>
+              <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+                {[
+                  { emoji: "🍅" },
+                  { emoji: "🥚" },
+                  { emoji: "💩" },
+                ].map(({ emoji, label }) => (
+                  <button
+                    key={emoji}
+                    onClick={() => setSelectedWeapon(emoji)}
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "12px",
+                      border: selectedWeapon === emoji ? "2px solid #F51818" : "1.5px solid #F3AB93",
+                      background: selectedWeapon === emoji ? "#FFECE3" : "#fff",
+                      cursor: "pointer",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "4px",
+                      transition: "all 0.15s",
+                    }}
+                  >
+                    <span style={{ fontSize: "28px" }}>{emoji}</span>
+                    <span style={{ fontSize: "11px", color: "#995a5a" }}>{label}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
             <button

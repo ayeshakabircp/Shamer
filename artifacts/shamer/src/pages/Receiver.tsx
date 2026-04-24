@@ -54,21 +54,21 @@ function TomatoSplash({
   if (!animData) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
+      <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
       <Lottie
         lottieRef={lottieRef}
         animationData={animData}
         loop={false}
         autoplay
         onComplete={onComplete}
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        style={{ width: "100vw", height: "100vh", objectFit: "cover" }}
       />
     </div>
   );
 }
 
-function EggSplash() {
-  const [animData, setAnimData] = useState<object | null>(null);
+  function EggSplash({ onComplete }: { onComplete: () => void }) {
+    const [animData, setAnimData] = useState<object | null>(null);
 
   useEffect(() => {
     fetch("/Eggss.json")
@@ -80,11 +80,11 @@ function EggSplash() {
   if (!animData) return null;
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 0, pointerEvents: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <Lottie
         animationData={animData}
-        loop={true}
-        style={{ width: 300, height: 300 }}
+        loop={false}
+        style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}
       />
     </div>
   );
@@ -235,10 +235,6 @@ export default function Receiver() {
   const bothDone = audioDone && animDone;
 
   useEffect(() => {
-    if (selectedWeapon === "🥚") setAnimDone(true);
-  }, [selectedWeapon]);
-
-  useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.7;
@@ -348,9 +344,9 @@ export default function Receiver() {
     <>
       <Nav />
       <audio ref={audioRef} src="/boo.mp3" preload="auto" />
-      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden" style={{ paddingTop: "56px" }}>
+      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden" style={{ paddingTop: "56px", position: "relative" }}>
         {selectedWeapon === "🥚"
-          ? <EggSplash />
+          ? <EggSplash onComplete={() => setAnimDone(true)} />
           : <TomatoSplash lottieRef={lottieRef} onComplete={() => setAnimDone(true)} />
         }
         <button
@@ -376,7 +372,7 @@ export default function Receiver() {
         >
           {audioIcon}
         </button>
-        <div className="relative z-10 w-full max-w-sm">
+          <div style={{ position: "relative", zIndex: 10 }} className="w-full max-w-sm">
           <h1
             className="shamer-font-display mb-4 uppercase text-center"
             style={{ fontSize: "64px", color: "#F51818", lineHeight: 1.1 }}
