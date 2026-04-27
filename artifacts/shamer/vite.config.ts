@@ -67,6 +67,8 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
+  appType: "spa",
+
   preview: {
     port,
     host: "0.0.0.0",

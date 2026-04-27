@@ -4,6 +4,7 @@ import { supabase } from "./lib/supabase";
 import Sender from "@/pages/Sender";
 import Receiver from "@/pages/Receiver";
 import Story from "@/pages/Story";
+import AIDetector from "@/pages/AIDetector";
 
 function NotFound() {
   return (
@@ -19,7 +20,6 @@ function NotFound() {
 
 function ShameRedirect() {
   const { id } = useParams();
-
   useEffect(() => {
     async function resolve() {
       const { data } = await supabase
@@ -27,19 +27,16 @@ function ShameRedirect() {
         .select("*")
         .eq("id", id)
         .single();
-
       if (!data) {
         window.location.href = "/";
         return;
       }
-
       const t = btoa(encodeURIComponent(data.message));
       const w = encodeURIComponent(data.weapon);
       window.location.href = `/shame?t=${t}&w=${w}`;
     }
     resolve();
   }, [id]);
-
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: "#FCF4F0" }}>
       <p style={{ color: "#666", fontSize: "14px" }}>Loading...</p>
@@ -53,6 +50,7 @@ function Router() {
       <Route path="/" component={Sender} />
       <Route path="/shame" component={Receiver} />
       <Route path="/story" component={Story} />
+      <Route path="/test" component={AIDetector} />
       <Route path="/s/:id" component={ShameRedirect} />
       <Route component={NotFound} />
     </Switch>

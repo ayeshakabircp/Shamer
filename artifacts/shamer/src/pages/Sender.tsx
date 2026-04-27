@@ -5,54 +5,41 @@ import { nanoid } from "nanoid";
 
 const SHAME_TEMPLATES = [
   "Babe... did you just outsource your feelings to a robot? Gross.",
+  "Sir, that is not you in that photo. You are not that symmetrical. Be for real.",
   "Uncle Frank. That joke wasn't yours. We know. The whole chat knows.",
-  "Another Monday. Another 'thought leadership' post written by a robot pretending to be you. Definitely original.",
-  "Sir that is not you in that photo. You are not that symmetrical. Be for real.",
+  "Another Monday. Another recycled 'thought leadership' post written by a robot pretending to be you. Definitely original.",
   "Do better.",
   "It's giving ctrl+C, ctrl+V. Give me a break Jessica.",
 ];
 
-type Screen = "home" | "link";
-
 async function generateShameLink(shameText: string, weapon: string): Promise<string> {
   const id = nanoid(6);
   await supabase.from("shames").insert({ id, message: shameText, weapon });
-  return `${window.location.origin}/s/${id}`;
+  const apiBase = window.location.origin.replace("3000", "8080");
+  return `${apiBase}/s/${id}`;
 }
 
 function Nav({ showLetterIcon, onLogoClick }: { showLetterIcon: boolean; onLogoClick: () => void }) {
   return (
     <nav style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      height: "72px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      padding: "0 24px",
-      background: "transparent",
-      zIndex: 1000,
+      position: "fixed", top: 0, left: 0, right: 0, height: "72px",
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      padding: "0 24px", background: "transparent", zIndex: 1000,
     }}>
-      <button
-        onClick={onLogoClick}
-        style={{ display: "flex", alignItems: "center", gap: "6px", background: "none", border: "none", cursor: "pointer", padding: 2 }}
-      >
+      <button onClick={onLogoClick} style={{ display: "flex", alignItems: "center", gap: "6px", background: "none", border: "none", cursor: "pointer", padding: 2 }}>
         <span style={{ fontSize: "20px" }}>🍅</span>
         <span className="shamer-font-display" style={{ fontSize: "24px", color: "#F51818" }}>SHAMER</span>
       </button>
       {showLetterIcon && (
-      <a href="/story">
-        <img src="/love-letter.svg" height={28} alt="Our story" style={{ width: 28, height: 28, display: "block" }} />
-      </a>
+        <a href="/story">
+          <img src="/love-letter.svg" height={24} alt="Our story" style={{ width: 24, height: 24, display: "block" }} />
+        </a>
       )}
     </nav>
   );
 }
 
 export default function Sender() {
-  const [screen, setScreen] = useState<Screen>("home");
   const [templateIndex, setTemplateIndex] = useState(0);
   const [customText, setCustomText] = useState("");
   const [useCustom, setUseCustom] = useState(false);
@@ -77,7 +64,6 @@ export default function Sender() {
   async function handleGenerate() {
     const link = await generateShameLink(displayText, selectedWeapon);
     setShameLink(link);
-    setScreen("link");
   }
 
   function handleCopy() {
@@ -91,182 +77,184 @@ export default function Sender() {
     setUseCustom(true);
   }
 
-  if (screen === "link") {
-    return (
-      <>
-        <Nav showLetterIcon={false} onLogoClick={() => setScreen("home")} />
-        <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center" style={{ paddingTop: "56px" }}>
-          <div className="mb-6">
-            <img src="/thumbs-up.png" alt="Thumbs up" style={{ width: "50px", height: "50px", objectFit: "contain" }} />
-          </div>
-          <h2
-            className="shamer-font-h2 mb-2 leading-tight"
-            style={{ fontSize: "52px", color: "#F51818" }}
-          >
-            Your shame link is ready.
-          </h2>
-          <p className="text-sm mb-8" style={{ color: "#444" }}>
-            Totally innocent looking. They'll never see it coming.
-          </p>
-
-          <button
-            onClick={handleCopy}
-            className="w-full max-w-sm px-6 py-4 text-left font-mono text-sm break-all border-2 transition-all"
-            style={{
-              borderRadius: "50px",
-              background: copied ? "#ad0d00" : "#fff",
-              borderColor: "#F3AB93",
-              color: copied ? "#fff" : "#1A1A1A",
-            }}
-          >
-            {copied ? "✓ Copied!" : shameLink}
-          </button>
-
-          <p className="text-xs mt-2 mb-8" style={{ color: "#995a5a" }}>
-            tap to copy
-          </p>
-
-          <div className="flex flex-col gap-3 w-full max-w-sm">
-            <button
-              className="shamer-btn-primary w-full px-6 py-4 text-base"
-              onClick={() => window.open(shameLink, "_blank")}
-            >
-              Preview Shame
-            </button>
-            <button
-              className="shamer-btn-secondary w-full px-6 py-4 text-base"
-              onClick={() => {
-                setScreen("home");
-                setCustomText("");
-                setUseCustom(false);
-              }}
-            >
-              Shame Someone Else
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  }
-
   return (
     <>
-      <Nav showLetterIcon={true} onLogoClick={() => setScreen("home")} />
-      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center p-10" style={{ paddingTop: "56px" }}>
+      <Nav showLetterIcon={true} onLogoClick={() => {
+        setShameLink("");
+        setCustomText("");
+        setUseCustom(false);
+        setTemplateIndex(0);
+        setSelectedWeapon("🍅");
+      }} />
+      <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center p-6 mobile-top-padding" style={{ paddingTop: "96px" }}>
         <div className="flex-1 flex items-center justify-center w-full">
-          <div className="w-full max-w-sm text-center">
+          <div style={{ width: "100%", maxWidth: "560px", margin: "0 auto", textAlign: "center" }}>
+
             <h1
-              className="shamer-font-display mb-3 uppercase"
-              style={{ fontSize: "64px", color: "#F51818", lineHeight: 0.9 }}
+              className="shamer-font-display mb-3 uppercase mobile-headline"
+              style={{ fontSize: "clamp(60px, 8vw, 88px)", color: "#F51818", lineHeight: 0.9 }}
             >
               Were you just<br />AI-ed?
             </h1>
 
-            <p className="mb-8 leading-relaxed" style={{ fontSize: "16px", color: "#444" }}>
-              There are some places AI just doesn't belong.
-              If you're here, you're probably a victim.
-              Go ahead, <strong>shame them.</strong>
-            </p>
-
-            <p className="text-xs mb-3" style={{ color: "#995a5a" }}>Pick a template or write your own</p>
-
-            <div
-              className="rounded-3xl p-4 mb-8 border-2"
-              style={{ background: "#fff", borderColor: "#F3AB93" }}
+            <p
+              className="leading-relaxed mobile-subtitle"
+              style={{ fontSize: "16px", color: "#444", maxWidth: "500px", margin: "0 auto 8px", textAlign: "center" }}
             >
-              <textarea
-                ref={textareaRef}
-                className="w-full text-sm resize-none outline-none bg-transparent leading-relaxed text-center"
-                style={{ color: "#1A1A1A", minHeight: "80px", fontFamily: "inherit" }}
-                value={useCustom ? customText : currentTemplate}
-                onChange={(e) => handleCustomType(e.target.value)}
-                placeholder="Write your own shame..."
-                onClick={() => {
-                  if (!useCustom) {
-                    setUseCustom(true);
-                    setCustomText(currentTemplate);
-                  }
-                }}
-              />
+              Got a text that felt a little too perfect? A LinkedIn post that wrote itself? A dating bio no human actually wrote?
+              <br />
+              Go ahead, get your link and <strong>shame them.</strong>
+            </p>
+            <a href="/test" style={{ fontSize: "13px", color: "#ad0d00", display: "block", marginBottom: "32px", textAlign: "center" }}>
+              <u>Is it really AI? Test the text you got →</u>
+            </a>
+            <div className="mobile-card" style={{ background: "rgba(243,171,147,0.2)", borderRadius: "24px", padding: "28px 28px 24px", maxWidth: "520px", margin: "0 auto" }}>
 
-              {!useCustom && (
-                <div className="flex items-center justify-between mt-3 pt-3 border-t" style={{ borderColor: "#F3AB93" }}>
+              {shameLink ? (
+                <div style={{ textAlign: "center" }}>
+                  <p style={{ fontSize: "13px", color: "#995a5a", marginBottom: "16px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                    ✓ Your shame link is ready
+                  </p>
                   <button
-                    onClick={handlePrev}
-                    className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-70"
-                    style={{ background: "#FFECE3", color: "#ad0d00" }}
-                  >
-                    ←
-                  </button>
-                  <span className="text-xs" style={{ color: "#995a5a" }}>
-                    {templateIndex + 1} of {SHAME_TEMPLATES.length} templates
-                  </span>
-                  <button
-                    onClick={handleNext}
-                    className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-70"
-                    style={{ background: "#FFECE3", color: "#ad0d00" }}
-                  >
-                    →
-                  </button>
-                </div>
-              )}
-
-              {useCustom && (
-                <button
-                  onClick={() => { setUseCustom(false); setCustomText(""); }}
-                  className="mt-2 text-xs underline"
-                  style={{ color: "#995a5a" }}
-                >
-                  use a template instead
-                </button>
-              )}
-            </div>
-
-            <div style={{ marginBottom: "24px" }}>
-              <p style={{ fontSize: "14px", color: "#995a5a", marginBottom: "12px", fontWeight: 600 }}>
-                Pick your weapon
-              </p>
-              <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
-                {[
-                  { emoji: "🍅" },
-                  { emoji: "🥚" },
-                  { emoji: "💩" },
-                ].map(({ emoji, label }) => (
-                  <button
-                    key={emoji}
-                    onClick={() => setSelectedWeapon(emoji)}
+                    onClick={handleCopy}
                     style={{
-                      width: "80px",
-                      height: "80px",
-                      borderRadius: "12px",
-                      border: selectedWeapon === emoji ? "2px solid #F51818" : "1.5px solid #F3AB93",
-                      background: selectedWeapon === emoji ? "#FFECE3" : "#fff",
-                      cursor: "pointer",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "4px",
-                      transition: "all 0.15s",
+                      width: "100%", padding: "12px 16px", borderRadius: "50px",
+                      background: copied ? "#ad0d00" : "#fff",
+                      border: "1.5px solid #F3AB93",
+                      color: copied ? "#fff" : "#1A1A1A",
+                      fontSize: "13px", fontFamily: "inherit", cursor: "pointer",
+                      marginBottom: "8px", textAlign: "left",
+                      overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                     }}
                   >
-                    <span style={{ fontSize: "28px" }}>{emoji}</span>
-                    <span style={{ fontSize: "11px", color: "#995a5a" }}>{label}</span>
+                    {copied ? "✓ Copied!" : shameLink}
                   </button>
-                ))}
-              </div>
+                  <p style={{ fontSize: "11px", color: "#995a5a", marginBottom: "20px" }}>tap to copy</p>
+                  <div className="mobile-btn-row" style={{ display: "flex", gap: "10px" }}>
+                    <button
+                      className="shamer-btn-primary px-4 py-3"
+                      style={{ flex: 1, fontSize: "16px" }}
+                      onClick={() => window.open(shameLink, "_blank")}
+                    >
+                      Preview 👀
+                    </button>
+                    <button
+                      className="shamer-btn-secondary px-4 py-3"
+                      style={{ flex: 1, fontSize: "16px" }}
+                      onClick={() => {
+                        setShameLink("");
+                        setCustomText("");
+                        setUseCustom(false);
+                        setTemplateIndex(0);
+                        setSelectedWeapon("🍅");
+                      }}
+                    >
+                      Shame someone else
+                    </button>
+                  </div>
+                </div>
+
+              ) : (
+                <>
+                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#995a5a", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
+                    Pick a template or write your own
+                  </p>
+
+                  <div
+                    className="rounded-3xl border-2"
+                    style={{ background: "#fff", borderColor: "#F3AB93", width: "100%", margin: "0 0 12px", padding: "20px 24px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
+                  >
+                    <textarea
+                      ref={textareaRef}
+                      className="w-full text-sm resize-none outline-none bg-transparent leading-relaxed text-center"
+                      style={{ color: "#1A1A1A", minHeight: "60px", fontFamily: "inherit" }}
+                      value={useCustom ? customText : currentTemplate}
+                      onChange={(e) => handleCustomType(e.target.value)}
+                      placeholder="Write your own shame..."
+                      onClick={() => {
+                        if (!useCustom) {
+                          setUseCustom(true);
+                          setCustomText(currentTemplate);
+                        }
+                      }}
+                    />
+                    {!useCustom && (
+                      <div className="flex items-center justify-between mt-3 pt-3 border-t" style={{ borderColor: "#F3AB93" }}>
+                        <button
+                          onClick={handlePrev}
+                          className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-70"
+                          style={{ background: "#FFECE3", color: "#ad0d00" }}
+                        >
+                          ←
+                        </button>
+                        <span className="text-xs" style={{ color: "#995a5a" }}>
+                          {templateIndex + 1} of {SHAME_TEMPLATES.length} templates
+                        </span>
+                        <button
+                          onClick={handleNext}
+                          className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-70"
+                          style={{ background: "#FFECE3", color: "#ad0d00" }}
+                        >
+                          →
+                        </button>
+                      </div>
+                    )}
+                    {useCustom && (
+                      <button
+                        onClick={() => { setUseCustom(false); setCustomText(""); }}
+                        className="mt-2 text-xs underline"
+                        style={{ color: "#995a5a" }}
+                      >
+                        Use a template instead
+                      </button>
+                    )}
+                  </div>
+
+                  <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 20px" }} />
+
+                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#995a5a", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "12px" }}>
+                    Pick your weapon
+                  </p>
+
+                    <div style={{ display: "flex", gap: "12px", justifyContent: "center", width: "100%", marginBottom: "20px" }}>
+                    {[{ emoji: "🍅" }, { emoji: "🥚" }, { emoji: "💩" }].map(({ emoji }) => (
+                      <button
+                        key={emoji}
+                        onClick={() => setSelectedWeapon(emoji)}
+                        className="weapon-card"
+                        style={{
+                          width: "140px", height: "140px", borderRadius: "12px",
+                          border: selectedWeapon === emoji ? "2px solid #F51818" : "1.5px solid #F3AB93",
+                          background: selectedWeapon === emoji ? "#FFECE3" : "#fff",
+                          cursor: "pointer", display: "flex", alignItems: "center",
+                          justifyContent: "center", transition: "all 0.15s",
+                        }}
+                      >
+                        <span className="weapon-emoji" style={{ fontSize: "52px" }}>{emoji}</span>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 16px" }} />
+
+                  <button
+                    onClick={handleGenerate}
+                    disabled={!displayText.trim()}
+                    className="shamer-btn-primary px-6 py-4 text-base"
+                    style={{ width: "100%", display: "block" }}
+                  >
+                    Get my shame link
+                  </button>
+                </>
+              )}
             </div>
 
-            <button
-              onClick={handleGenerate}
-              disabled={!displayText.trim()}
-              className="shamer-btn-primary w-full px-6 py-4 text-base"
-            >
-              Generate Shame Link
-            </button>
+            <p style={{ fontSize: "12px", color: "#8f4040", marginTop: "32px", textAlign: "center" }} className="font-bold">
+              AI-built AI Shamer 🍅 · <a href="/story" style={{ color: "#8f4040", textDecoration: "underline" }}>Wait, why?</a>
+            </p>
+
           </div>
         </div>
-        <p style={{ fontSize: "12px", color: "#8f4040" }} className="font-bold">AI-built AI shamer.</p>
       </div>
     </>
   );
