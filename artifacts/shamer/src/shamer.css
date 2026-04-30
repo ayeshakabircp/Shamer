@@ -108,6 +108,21 @@
   .mobile-top-padding {
     padding-top: 120px !important;
   }
+  @media (max-width: 640px) {
+    .nav-story-btn span.nav-btn-text {
+      display: none;
+    }
+    .nav-story-btn {
+      background: transparent !important;
+      border: none !important;
+      padding: 4px !important;
+    }
+  }
+  @media (max-width: 640px) {
+    .mobile-callout {
+      margin-bottom: 12px !important;
+    }
+  }
 }
 @keyframes weaponJump {
   0% { transform: translateY(0); }
@@ -134,4 +149,11 @@
 
 .template-picker:focus-within {
   border-color: #F51818 !important;
+}
+
+@media (max-width: 640px) {
+  .stepper-wrap {
+    flex-wrap: wrap;
+    gap: 8px !important;
+  }
 }
