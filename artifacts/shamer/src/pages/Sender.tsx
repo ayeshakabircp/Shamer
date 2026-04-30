@@ -299,6 +299,11 @@ export default function Sender() {
             <p style={{ fontSize: "12px", color: "#8f4040", marginTop: "32px", textAlign: "center" }} className="font-bold">
               AI-built AI Shamer 🍅 · <a href="/story" style={{ color: "#8f4040", textDecoration: "underline" }}>Wait, why?</a>
             </p>
+            {shameCount !== null && (
+              <p style={{ fontSize: "12px", color: "#ad0d00", marginTop: "10px", textAlign: "center" }}>
+                 {shameCount.toLocaleString()} shames sent and counting
+              </p>
+            )}
 
           </div>
         </div>
