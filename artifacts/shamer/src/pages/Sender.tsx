@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../shamer.css";
 import { supabase } from "../lib/supabase";
 import { nanoid } from "nanoid";
@@ -31,10 +31,24 @@ function Nav({ showLetterIcon, onLogoClick }: { showLetterIcon: boolean; onLogoC
         <span className="shamer-font-display" style={{ fontSize: "24px", color: "#F51818" }}>SHAMER</span>
       </button>
       {showLetterIcon && (
-        <a href="/story">
-          <img src="/love-letter.svg" height={24} alt="Our story" style={{ width: 24, height: 24, display: "block" }} />
+            <a href="/story" style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              textDecoration: "none",
+              fontSize: "14px",
+              color: "#ad0d00",
+              fontFamily: "'Hanken Grotesk', sans-serif",
+              fontWeight: 700,
+              background: "rgba(243,171,147,0.7)",
+              borderRadius: "999px",
+              padding: "8px 16px",
+            }}>
+              <img src="/love-letter.svg" alt="" style={{ width: "1.4em", height: "1.4em", display: "inline", verticalAlign: "middle" }} />
+          What Is This?
         </a>
       )}
+
     </nav>
   );
 }
@@ -47,6 +61,13 @@ export default function Sender() {
   const [copied, setCopied] = useState(false);
   const [selectedWeapon, setSelectedWeapon] = useState("🍅");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [shameCount, setShameCount] = useState<number | null>(null);
+  useEffect(() => {
+    supabase
+      .from("shames")
+      .select("*", { count: "exact", head: true })
+      .then(({ count }) => setShameCount(count));
+  }, []);
 
   const currentTemplate = SHAME_TEMPLATES[templateIndex];
   const displayText = useCustom ? customText : currentTemplate;
@@ -102,18 +123,43 @@ export default function Sender() {
               style={{ fontSize: "16px", color: "#444", maxWidth: "500px", margin: "0 auto 8px", textAlign: "center" }}
             >
               Got a text that felt a little too perfect? A LinkedIn post that wrote itself? A dating bio no human actually wrote?
-              <br />
-              Go ahead, get your link and <strong>shame them.</strong>
             </p>
-            <a href="/test" style={{ fontSize: "13px", color: "#ad0d00", display: "block", marginBottom: "32px", textAlign: "center" }}>
-              <u>Is it really AI? Test the text you got →</u>
-            </a>
-            <div className="mobile-card" style={{ background: "rgba(243,171,147,0.2)", borderRadius: "24px", padding: "28px 28px 24px", maxWidth: "520px", margin: "0 auto" }}>
 
+            <p style={{ fontSize: "14px", color: "#995a5a", maxWidth: "440px", margin: "0 auto 28px", textAlign: "center" }}>
+              <strong>Shamer helps you call them out.</strong>
+            </p>
+
+            <div className="mobile-card" style={{ background: "rgba(243,171,147,0.2)", borderRadius: "24px", padding: "28px 28px 24px", maxWidth: "520px", margin: "0 auto" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: "20px", color: "#995a5a" }}>
+                {[
+                  { label: "WRITE THE SHAME" },
+                  { label: "PICK YOUR WEAPON" },
+                  { label: "SEND THE LINK" },
+                ].map(({ label }, i, arr) => (
+                  <>
+                    <span key={label} style={{
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      color: "#995a5a",
+                      letterSpacing: "0.1em",
+                    fontFamily: "'Hanken Grotesk', sans-serif",
+                    }}>
+                      {label}
+                    </span>
+                    {i < arr.length - 1 && (
+                    <span style={{ fontSize: "10px", color: "#000" }}>🍅</span>
+                    )}
+                  </>
+                ))}
+              </div>
+              <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 20px" }} />
               {shameLink ? (
                 <div style={{ textAlign: "center" }}>
-                  <p style={{ fontSize: "13px", color: "#995a5a", marginBottom: "16px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                    ✓ Your shame link is ready
+                  <p style={{ fontSize: "13px", color: "#995a5a", marginBottom: "0px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                  Your shame link is ready ✓
+                  </p>
+                  <p style={{ fontSize: "14px", color: "#995a5a", marginBottom: "20px", lineHeight: 1.6 }}>
+                    Send this to them. They won't know what's coming.
                   </p>
                   <button
                     onClick={handleCopy}
@@ -156,13 +202,13 @@ export default function Sender() {
 
               ) : (
                 <>
-                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#995a5a", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
+                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#c97a6a", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
                     Pick a template or write your own
                   </p>
 
                   <div
-                    className="rounded-3xl border-2"
-                    style={{ background: "#fff", borderColor: "#F3AB93", width: "100%", margin: "0 0 12px", padding: "20px 24px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
+                    className="rounded-3xl border-2 template-picker"
+                    style={{ background: "#fff", borderColor: "#FFECE3",transition: "border-color 0.2s", width: "100%", margin: "0 0 20px", padding: "20px 24px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
                   >
                     <textarea
                       ref={textareaRef}
@@ -209,21 +255,20 @@ export default function Sender() {
                       </button>
                     )}
                   </div>
-
                   <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 20px" }} />
 
-                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#995a5a", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "12px" }}>
+                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#c97a6a", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "12px" }}>
                     Pick your weapon
                   </p>
 
-                    <div style={{ display: "flex", gap: "12px", justifyContent: "center", width: "100%", marginBottom: "20px" }}>
+                      <div style={{ display: "flex", gap: "20px", justifyContent: "center", width: "100%", marginBottom: "20px" }}>
                     {[{ emoji: "🍅" }, { emoji: "🥚" }, { emoji: "💩" }].map(({ emoji }) => (
                       <button
                         key={emoji}
                         onClick={() => setSelectedWeapon(emoji)}
                         className="weapon-card"
                         style={{
-                          width: "140px", height: "140px", borderRadius: "12px",
+                          flex: 1, height: "140px", borderRadius: "12px",
                           border: selectedWeapon === emoji ? "2px solid #F51818" : "1.5px solid #F3AB93",
                           background: selectedWeapon === emoji ? "#FFECE3" : "#fff",
                           cursor: "pointer", display: "flex", alignItems: "center",
@@ -236,7 +281,9 @@ export default function Sender() {
                   </div>
 
                   <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 16px" }} />
-
+                  <a href="/test" className="ai-test-link" style={{ fontSize: "12px", color: "#995a5a", display: "block", marginBottom: "12px", textAlign: "center", textDecoration: "none", transition: "color 0.2s" }}>
+                    Is it even AI? Test the text in question first →
+                  </a>
                   <button
                     onClick={handleGenerate}
                     disabled={!displayText.trim()}

@@ -235,9 +235,9 @@ export default function Receiver() {
       <>
         <Nav />
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center" style={{ paddingTop: "56px" }}>
-          <h2 className="shamer-font-h2 mb-4" style={{ fontSize: "52px", color: "#ad0d00", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", flexWrap: "nowrap" }}>
-            Apology accepted
-            <img src="/check-thumbs.png" alt="Check" style={{ width: "0.8em", height: "0.8em", objectFit: "contain", flexShrink: 0 }} />
+          <h2 className="shamer-font-h2 mb-4" style={{ fontSize: "52px", color: "#ad0d00" }}>
+            Apology accepted{" "}
+            <img src="/check-thumbs.png" alt="Check" style={{ width: "0.8em", height: "0.8em", objectFit: "contain", display: "inline", verticalAlign: "middle" }} />
           </h2>
           <p className="text-base mb-10" style={{ fontSize: 16, color: "#444" }}>Do better next time.</p>
           <button onClick={() => window.location.href = "/"} className="shamer-btn-primary px-6 py-4 text-base">
@@ -270,9 +270,9 @@ export default function Receiver() {
       <>
         <Nav />
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative" style={{ paddingTop: "56px" }}>
-          <h2 className="shamer-font-h2 mb-4" style={{ fontSize: "52px", color: "#ad0d00", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", flexWrap: "wrap" }}>
-            Accept your shame.
-            <img src="/fist.png" alt="Fist" style={{ width: "0.8em", height: "0.8em", objectFit: "contain", flexShrink: 0 }} />
+          <h2 className="shamer-font-h2 mb-4" style={{ fontSize: "52px", color: "#ad0d00" }}>
+            Accept your shame{" "}
+            <img src="/fist.png" alt="Fist" style={{ width: "0.8em", height: "0.8em", objectFit: "contain", display: "inline", verticalAlign: "middle" }} />
           </h2>
           <p className="text-sm mb-8" style={{ fontSize: 16, color: "#444" }}>The person who sent this to you is never wrong.</p>
           <div className="flex flex-col gap-4 w-full max-w-xs items-center">
@@ -300,7 +300,7 @@ export default function Receiver() {
         <button
           onClick={handleAudioButton}
           style={{
-            position: "fixed", top: 68, right: 16, zIndex: 99999,
+            position: "fixed", top: 16, right: 24, zIndex: 99999,
             width: 40, height: 40, borderRadius: "50%",
             border: "1.5px solid #F3AB93", background: "#FFECE3",
             cursor: "pointer", fontSize: "1.1rem", display: "flex",

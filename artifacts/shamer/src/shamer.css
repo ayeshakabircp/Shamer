@@ -109,3 +109,29 @@
     padding-top: 120px !important;
   }
 }
+@keyframes weaponJump {
+  0% { transform: translateY(0); }
+  12% { transform: translateY(-10px); }
+  24% { transform: translateY(0); }
+  36% { transform: translateY(-10px); }
+  48% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.weapon-card:hover .weapon-emoji {
+  animation: weaponJump 4s ease infinite;
+}
+.ai-test-link:hover {
+  color: #ad0d00 !important;
+}
+
+.template-picker:hover {
+  border-color: #995a5a !important;
+}
+.template-picker:hover {
+  border-color: #c97a6a !important;
+}
+
+.template-picker:focus-within {
+  border-color: #F51818 !important;
+}
