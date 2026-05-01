@@ -25,20 +25,20 @@ import html2canvas from "html2canvas";
           <nav style={{
             position: "fixed", top: 0, left: 0, right: 0, height: "72px",
             display: "flex", alignItems: "center", justifyContent: "space-between",
-            padding: "0 24px", background: "transparent", zIndex: 1000,
+            padding: "0 16px", background: "transparent", zIndex: 1000,
           }}>
             <button onClick={onLogoClick} style={{ display: "flex", alignItems: "center", gap: "6px", background: "none", border: "none", cursor: "pointer", padding: 2 }}>
               <span style={{ fontSize: "20px" }}>🍅</span>
               <span className="shamer-font-display" style={{ fontSize: "24px", color: "#F51818" }}>SHAMER</span>
             </button>
             {showLetterIcon && (
-              <a href="/story" style={{
-                display: "flex", alignItems: "center", gap: "6px", textDecoration: "none",
-                fontSize: "14px", color: "#ad0d00", fontFamily: "'Hanken Grotesk', sans-serif",
-                fontWeight: 700, background: "rgba(243,171,147,0.35)", border: "1.5px solid #F3AB93",
-                borderRadius: "999px", padding: "8px 16px",
-              }}>
-            <img src="/love-letter.svg" alt="" style={{ width: "1.4em", height: "1.4em", display: "inline", verticalAlign: "middle" }} />
+            <a href="/story" className="nav-story-btn" style={{
+              display: "flex", alignItems: "center", gap: "6px", textDecoration: "none",
+              fontSize: "14px", color: "#ad0d00", fontFamily: "'Hanken Grotesk', sans-serif",
+              fontWeight: 700, background: "rgba(243,171,147,0.35)", border: "1.5px solid #F3AB93",
+              borderRadius: "999px", padding: "8px 16px",
+            }}>
+              <img src="/love-letter.svg" alt="" style={{ width: "1.4em", height: "1.4em", display: "inline", verticalAlign: "middle" }} />
               <span className="nav-btn-text">What is this?</span>
             </a>
             )}
@@ -191,35 +191,33 @@ import html2canvas from "html2canvas";
                     Were you just<br />AI-ed?
                   </h1>
 
-                  <p className="leading-relaxed mobile-subtitle" style={{ fontSize: "16px", color: "#444", maxWidth: "500px", margin: "0 auto 8px", textAlign: "center" }}>
+                  <p className="leading-relaxed mobile-subtitle" style={{ fontSize: "16px", color: "#444", maxWidth: "500px", margin: "0 auto 4px", textAlign: "center" }}>
                     Got a text that felt a little too perfect? A LinkedIn post that wrote itself? A dating bio no human actually wrote?
                   </p>
 
-                  <p className="mobile-callout" style={{ fontSize: "14px", color: "#995a5a", maxWidth: "440px", margin: "0 auto 28px", textAlign: "center" }}>
+                  <p className="mobile-callout" style={{ fontSize: "15px", color: "#995a5a", maxWidth: "440px", margin: "0 auto 28px", textAlign: "center" }}>
                     <strong>Shamer helps you call them out.</strong>
                   </p>
-
+                  {!shameLink && (
+                    <>
+                      <div className="stepper-wrap" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: "20px" }}>
+                        {[
+                          { label: "WRITE THE SHAME" },
+                          { label: "PICK YOUR WEAPON" },
+                          { label: "SEND THE LINK" },
+                        ].map(({ label }, i, arr) => (
+                          <>
+                            <span key={label} style={{ fontSize: "12px", fontWeight: 700, color: "#995a5a", letterSpacing: "0.1em", fontFamily: "'Hanken Grotesk', sans-serif" }}>
+                              {label}
+                            </span>
+                            {i < arr.length - 1 && <span style={{ fontSize: "10px" }}>🍅</span>}
+                          </>
+                        ))}
+                      </div>
+                    </>
+                  )}
                   <div className="mobile-card" style={{ background: "rgba(243,171,147,0.2)", borderRadius: "24px", padding: "28px 28px 24px", maxWidth: "520px", margin: "0 auto" }}>
 
-                    {!shameLink && (
-                      <>
-                        <div className="stepper-wrap" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: "20px" }}>
-                          {[
-                            { label: "WRITE THE SHAME" },
-                            { label: "PICK YOUR WEAPON" },
-                            { label: "SEND THE LINK" },
-                          ].map(({ label }, i, arr) => (
-                            <>
-                              <span key={label} style={{ fontSize: "12px", fontWeight: 700, color: "#995a5a", letterSpacing: "0.1em", fontFamily: "'Hanken Grotesk', sans-serif" }}>
-                                {label}
-                              </span>
-                              {i < arr.length - 1 && <span style={{ fontSize: "10px" }}>🍅</span>}
-                            </>
-                          ))}
-                        </div>
-                        <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 20px" }} />
-                      </>
-                    )}
 
                     {shameLink ? (
                       <div style={{ textAlign: "center" }}>
@@ -321,7 +319,7 @@ import html2canvas from "html2canvas";
                         </div>
 
                         <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 16px" }} />
-                        <a href="/test" className="ai-test-link" style={{ fontSize: "12px", color: "#995a5a", display: "block", marginBottom: "12px", textAlign: "center", textDecoration: "none", transition: "color 0.2s" }}>
+                        <a href="/test" className="ai-test-link" style={{ fontSize: "13px", color: "#995a5a", display: "block", marginBottom: "14px", textAlign: "center", textDecoration: "none", transition: "color 0.2s" }}>
                           Not sure it's even AI? Test it first →
                         </a>
                         <button onClick={handleGenerate} disabled={!displayText.trim()} className="shamer-btn-primary px-6 py-4 text-base" style={{ width: "100%", display: "block" }}>
@@ -331,12 +329,12 @@ import html2canvas from "html2canvas";
                     )}
                   </div>
 
-                  <p style={{ fontSize: "12px", color: "#8f4040", marginTop: "32px", textAlign: "center" }} className="font-bold">
-                    AI-built AI Shamer 🍅 · <a href="/story" style={{ color: "#8f4040", textDecoration: "underline" }}>Wait, why?</a>
+                  <p style={{ fontSize: "12px", color: "#ad0d00", marginTop: "32px", textAlign: "center" }} className="font-bold">
+                    AI-built AI Shamer 🍅 · <a href="/story" style={{ color: "#ad0d00", textDecoration: "underline" }}>Wait, why?</a>
                   </p>
                   {shameCount !== null && (
-                    <p style={{ fontSize: "12px", color: "#ad0d00", marginTop: "10px", textAlign: "center" }}>
-                      {shameCount.toLocaleString()} shames sent and counting
+                    <p style={{ fontSize: "12px", color: "#995a5a", marginTop: "10px", textAlign: "center" }}>
+                     <strong>{shameCount.toLocaleString()} shames sent and counting</strong> 
                     </p>
                   )}
 

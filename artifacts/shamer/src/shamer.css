@@ -120,7 +120,7 @@
   }
   @media (max-width: 640px) {
     .mobile-callout {
-      margin-bottom: 12px !important;
+      margin-bottom: 28px !important;
     }
   }
 }
@@ -153,7 +153,24 @@
 
 @media (max-width: 640px) {
   .stepper-wrap {
-    flex-wrap: wrap;
     gap: 8px !important;
+  }
+  .stepper-wrap span {
+    font-size: 10px !important;
+  }
+}
+@media (max-width: 640px) {
+  .nav-btn-text {
+    display: none !important;
+  }
+  .nav-story-btn {
+    background: transparent !important;
+    border: none !important;
+    padding: 4px !important;
+  }
+}
+@media (max-width: 640px) {
+  .mobile-subtitle {
+    margin-bottom: 6px !important;
   }
 }
