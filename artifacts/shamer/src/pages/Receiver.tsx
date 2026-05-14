@@ -239,7 +239,9 @@ export default function Receiver() {
             Apology accepted{" "}
             <img src="/check-thumbs.png" alt="Check" style={{ width: "0.8em", height: "0.8em", objectFit: "contain", display: "inline", verticalAlign: "middle" }} />
           </h2>
-          <p className="text-base mb-10" style={{ fontSize: 16, color: "#444" }}>Do better next time.</p>
+          <p className="text-base mb-10" style={{ fontSize: 16, color: "#444" }}>
+            Do better next time. And tell them you're sorry.
+          </p>
           <button onClick={() => window.location.href = "/"} className="shamer-btn-primary px-6 py-4 text-base">
             Shame Someone Else
           </button>
@@ -286,6 +288,11 @@ export default function Receiver() {
     );
   }
 
+  const weaponTheme = {
+    "🍅": { bg: "rgba(252,244,240,0.85)", accent: "#F51818" },
+    "🥚": { bg: "rgba(255,250,240,0.85)", accent: "#E8691E" },
+    "💩": { bg: "rgba(245,240,232,0.85)", accent: "#8B6914" },
+  }[selectedWeapon] ?? { bg: "rgba(252,244,240,0.85)", accent: "#F51818" };
   return (
     <>
       <Nav />
@@ -310,25 +317,25 @@ export default function Receiver() {
           {audioIcon}
         </button>
         <div style={{ position: "relative", zIndex: 10 }} className="w-full max-w-sm">
-          <h1 className="shamer-font-display mb-4 uppercase text-center" style={{ fontSize: "64px", color: "#F51818", lineHeight: 1.1 }}>
-            You've been shamed!
-          </h1>
-          <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#444" }}>
-            {shameText}
-          </p>
-          <div className="mb-8">
-            <BouncingThumbsDown />
-          </div>
-          <div className="flex flex-col gap-3">
-            <button onClick={() => setScreen("deserved")} className="shamer-btn-primary w-full px-6 py-4 text-base">
-              I deserved this
-            </button>
-            <button onClick={() => setScreen("didnt-use-ai")} className="shamer-btn-secondary w-full px-6 py-4 text-base">
-              But I didn't use AI
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
+                  <h1 className="shamer-font-display mb-4 uppercase text-center" style={{ fontSize: "64px", color: weaponTheme.accent, lineHeight: 1.1 }}>
+                  You've been shamed!
+                </h1>
+                <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#444" }}>
+                  {shameText}
+                </p>
+                <div className="mb-8">
+                  <BouncingThumbsDown />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <button onClick={() => setScreen("deserved")} className="shamer-btn-primary w-full px-6 py-4 text-base">
+                    I deserved this
+                  </button>
+                  <button onClick={() => setScreen("didnt-use-ai")} className="shamer-btn-secondary w-full px-6 py-4 text-base">
+                    But I didn't use AI
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      }

@@ -21,9 +21,13 @@ export default function Story() {
           alt="My Story"
           style={{ width: "100%", maxWidth: "min(90vh, 1000px)", height: "auto", display: "block", margin: "0 auto" }}
         />
-        <a href="/" className="shamer-btn-primary" style={{ marginTop: "32px", padding: "14px 32px", fontSize: "15px", textDecoration: "none", display: "inline-block" }}>
-          Go shame someone 🍅
-        </a>
+        <button
+          onClick={() => setScreen("builder")}
+          className="shamer-btn-primary"
+          style={{ width: "auto", minWidth: "280px", padding: "16px 48px", fontSize: "18px" }}
+        >
+          Shame someone 🍅
+        </button>
       </div>
     </>
   );
