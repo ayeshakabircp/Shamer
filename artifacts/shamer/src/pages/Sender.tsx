@@ -3,6 +3,7 @@ import React from "react";
 import "../shamer.css";
 import { supabase } from "../lib/supabase";
 import { nanoid } from "nanoid";
+import { encodeShame } from "../lib/encoding";
 
 const SHAME_TEMPLATES = [
   "Babe... did you just outsource your feelings to a robot? Gross.",
