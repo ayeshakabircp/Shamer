@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useSearch } from "wouter";
 import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import "../shamer.css";
+import { decodeShame } from "../lib/encoding";
+import { useLocation } from "wouter";
 
 type ReceiverScreen = "shame" | "deserved" | "didnt-use-ai" | "never-wrong";
 
@@ -178,14 +180,12 @@ function WiggleButton({ label, onClick, style, className, anchorRef }: {
 }
 
 export default function Receiver() {
-  const search = useSearch();
-  const params = new URLSearchParams(search);
-  const encoded = params.get("t") ?? "";
-  const shameText = (() => {
-    try { return decodeURIComponent(atob(encoded)); }
-    catch { return "Babe... did you just outsource your feelings to a robot? Gross."; }
-  })();
-  const selectedWeapon = params.get("w") ?? "🍅";
+  const [location] = useLocation();
+const params = new URLSearchParams(location.split("?")[1]);
+const encoded = params.get("m") ?? "";
+const shameData = encoded ? decodeShame(decodeURIComponent(encoded)) : null;
+const shameText = shameData?.message ?? "Babe... did you just outsource your feelings to a robot? Gross.";
+const selectedWeapon = params.get("w") ?? "🍅";
 
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
   const [audioPlaying, setAudioPlaying] = useState(false);

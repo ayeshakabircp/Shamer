@@ -1,12 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import React from "react";
 import "../shamer.css";
-import { supabase } from "../lib/supabase";
-import { nanoid } from "nanoid";
 import { encodeShame } from "../lib/encoding";
 
 const SHAME_TEMPLATES = [
-  "Babe... did you just outsource your feelings to a robot? Gross.",
+  "Babe... did you just outscore your feelings to a robot? Gross.",
   "Sir, that is not you in that photo. You are not that symmetrical. Be for real.",
   "Uncle Frank. That joke wasn't yours. We know. The whole chat knows.",
   "Another Monday. Another recycled 'thought leadership' post written by a robot pretending to be you. Definitely original.",
@@ -14,11 +12,9 @@ const SHAME_TEMPLATES = [
   "It's giving ctrl+C, ctrl+V. Give me a break Jessica.",
 ];
 
-async function generateShameLink(shameText: string, weapon: string): Promise<string> {
-  const id = nanoid(6);
-  await supabase.from("shames").insert({ id, message: shameText, weapon });
-  const apiBase = window.location.origin.replace("3000", "8080");
-  return `${apiBase}/s/${id}`;
+function generateShameLink(shameText: string, weapon: string): string {
+  const encoded = encodeShame(shameText, weapon);
+  return `${window.location.origin}/shame?m=${encodeURIComponent(encoded)}&w=${encodeURIComponent(weapon)}`;
 }
 
 function Nav({ onLogoClick, showLetterIcon }: { onLogoClick: () => void; showLetterIcon: boolean }) {
