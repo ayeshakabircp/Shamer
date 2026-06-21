@@ -435,7 +435,6 @@ export default function Sender() {
                   </button>
                 ))}
               </div>
-              <div style={{ height: "1px", background: "#F3AB93", opacity: 0.7, margin: "0 0 32px" }} />
               <button onClick={handleGenerate} disabled={!displayText.trim()} className="shamer-btn-primary px-6 py-4 text-base" style={{ width: "100%", display: "block" }}>
                 Get my shame link
               </button>
