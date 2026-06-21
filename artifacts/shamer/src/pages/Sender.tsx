@@ -386,7 +386,7 @@ export default function Sender() {
             </h2>
             <div className="mobile-card" style={{ background: "rgba(243,171,147,0.2)", borderRadius: "24px", padding: "28px 28px 24px", maxWidth: "520px", margin: "0 auto" }}>
               <p style={{ fontSize: "11px", fontWeight: 700, color: "#ad0d00", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
-                Pick a template or write your own
+                Pick what you want to say or write your own
               </p>
               <div className="rounded-3xl border-2 template-picker" style={{ background: "#fff", borderColor: "#F3AB93", transition: "border-color 0.2s", width: "100%", margin: "0 0 20px", padding: "20px 24px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
                 <textarea
