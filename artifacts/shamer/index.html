@@ -1,20 +1,31 @@
+cat > /home/runner/workspace/artifacts/shamer/index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Shamer</title>
+    <title>This made me think of you 🥺</title>
+    <meta property="og:title" content="This made me think of you 🥺" />
+    <meta property="og:description" content="saw this and immediately thought of you, had to share 🥺" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="This made me think of you 🥺" />
+    <meta name="twitter:description" content="saw this and immediately thought of you, had to share 🥺" />
+    <meta name="description" content="AI-built AI shamer. Send shame to anyone who used AI where they shouldn't have." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/vdb8yda.css" />
-    <meta name="description" content="AI-built AI shamer. Send shame to anyone who used AI where they shouldn't have." />
-    <meta property="og:title" content="Shamer" />
-    <meta property="og:description" content="AI-built AI shamer." />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+EOF
+cd /home/runner/workspace/artifacts/shamer
+git add index.html
+git commit -m "Fix index.html with disguised OG tags"
+git push origin main
