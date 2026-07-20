@@ -1,7 +1,6 @@
 [build]
-  base = "artifacts/shamer"
-  command = "pnpm install --filter=@workspace/shamer && pnpm --filter=@workspace/shamer run build"
-  publish = "dist"
+  command = "pnpm install && pnpm --filter=@workspace/shamer run build"
+  publish = "artifacts/shamer/dist"
 
 [[redirects]]
   from = "/*"
