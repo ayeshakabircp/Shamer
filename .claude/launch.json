@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "seer",
+      "runtimeExecutable": "/private/tmp/claude-502/-Users-ayeshakabir-Downloads-Shamer-Designzip/f1bef7d5-e509-47c7-b66b-09b17df6c264/scratchpad/seer-dev.sh",
+      "runtimeArgs": [],
+      "port": 5273
+    }
+  ]
+}
