@@ -22,7 +22,7 @@ export default function Story() {
           style={{ width: "100%", maxWidth: "min(90vh, 1000px)", height: "auto", display: "block", margin: "0 auto" }}
         />
         <button
-          onClick={() => setScreen("builder")}
+          onClick={() => window.location.href = "/"}
           className="shamer-btn-primary"
           style={{ width: "auto", minWidth: "280px", padding: "16px 48px", fontSize: "18px" }}
         >

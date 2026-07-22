@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import React from "react";
+import { useSearch } from "wouter";
 import "../shamer.css";
 import { encodeShame } from "../lib/encoding";
 
@@ -159,10 +160,13 @@ function WeaponPreview({ weapon, onDone }: { weapon: string; onDone: () => void 
 }
 
 export default function Sender() {
-  const [screen, setScreen] = useState<"landing" | "builder" | "link">("landing");
+  const search = useSearch();
+  const prefill = new URLSearchParams(search).get("prefill");
+
+  const [screen, setScreen] = useState<"landing" | "builder" | "link">(prefill ? "builder" : "landing");
   const [templateIndex, setTemplateIndex] = useState(0);
-  const [customText, setCustomText] = useState("");
-  const [useCustom, setUseCustom] = useState(false);
+  const [customText, setCustomText] = useState(prefill ?? "");
+  const [useCustom, setUseCustom] = useState(!!prefill);
   const [shameLink, setShameLink] = useState("");
   const [copied, setCopied] = useState(false);
   const [selectedWeapon, setSelectedWeapon] = useState("🍅");
