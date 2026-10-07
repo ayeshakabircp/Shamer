@@ -35,12 +35,13 @@ function Nav({ onLogoClick, showLetterIcon }: { onLogoClick: () => void; showLet
         <span className="shamer-font-display" style={{ fontSize: "24px", color: "#F51818" }}>SHAMER</span>
       </button>
       {showLetterIcon && (
-        <a href="/story" className="nav-story-btn" style={{
-          display: "flex", alignItems: "center", gap: "6px", textDecoration: "none",
-          fontSize: "14px", color: "#ad0d00", fontFamily: "'Hanken Grotesk', sans-serif",
-          fontWeight: 700, background: "rgba(243,171,147,0.35)", border: "1.5px solid #F3AB93",
-          borderRadius: "999px", padding: "8px 16px",
-        }}>
+       <a href="/story" className="nav-story-btn" style={{
+  display: "flex", alignItems: "center", gap: "6px", textDecoration: "none",
+  fontSize: "14px", color: "#ad0d00", fontFamily: "'Hanken Grotesk', sans-serif",
+  fontWeight: 700, background: "#FFECE3", border: "1.5px solid #ad0d00",
+  borderRadius: "999px", padding: "8px 16px",
+  boxShadow: "0 2px 10px rgba(173, 13, 0, 0.15)",
+}}>
           <img src="/love-letter.svg" alt="" style={{ width: "1.4em", height: "1.4em", display: "inline", verticalAlign: "middle" }} />
           <span className="nav-btn-text">What is this?</span>
         </a>
