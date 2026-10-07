@@ -3,15 +3,18 @@ import React from "react";
 import { useSearch } from "wouter";
 import "../shamer.css";
 import { encodeShame } from "../lib/encoding";
+import GrainBackground from "../components/GrainBackground";
 
 const SHAME_TEMPLATES = [
-  "This went from your prompt to my problem in under 10 seconds. Do better.",
+  "This went from your prompt to my problem in under 10 seconds. Thanks.",
   "Keep. 👏 My. 👏 Inbox. 👏 Out. 👏 Of. 👏 Your. 👏 Slop.",
   "Babe... did you just outsource your feelings to a robot? Gross.",
   "Sir, that is not you in that photo. You are not that symmetrical. Be for real.",
   "Next time, maybe meet your deliverable before you deliver it.",
+  "Uncle Frank. That joke wasn't yours. We know. The whole chat knows.",
   "For the last time. Read. It. Before. You. Send. It.",
   "Another Monday. Another recycled 'thought leadership' post written by a robot pretending to be you. Definitely original.",
+  "Do better.",
   "It's giving ctrl+C, ctrl+V. Give me a break Jessica.",
 ];
 
@@ -222,6 +225,7 @@ export default function Sender() {
   if (screen === "landing") {
     return (
       <>
+        <GrainBackground />
         <Nav onLogoClick={handleReset} showLetterIcon={true} />
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-6" style={{ paddingTop: "72px" }}>
           <div style={{ width: "100%", maxWidth: "560px", margin: "0 auto", textAlign: "center", paddingBottom: "120px" }}>
@@ -232,7 +236,7 @@ export default function Sender() {
               Were you just<br />AI-ed?
             </h1>
             <p className="leading-relaxed" style={{ fontSize: "16px", color: "#444", maxWidth: "500px", margin: "0 auto 32px", textAlign: "center" }}>
-             Ever had to proofread a 20 page doc with 0 thoughts and 1 prompt behind it? Saw a LinkedIn post that wrote itself? A dating bio no human actually wrote?
+              Ever had to proofread a 20 page doc with 0 thoughts and 1 prompt behind it? Saw a LinkedIn post that wrote itself? A dating bio no human actually wrote?
               <br /><strong>Shamer lets you call them out 💅</strong>
             </p>
             <FlowDiagram />
@@ -264,6 +268,7 @@ export default function Sender() {
   if (screen === "link") {
     return (
       <>
+        <GrainBackground />
         <Nav onLogoClick={handleReset} showLetterIcon={false} />
         {showCard && (
           <div
@@ -376,6 +381,7 @@ export default function Sender() {
   // BUILDER SCREEN
   return (
     <>
+      <GrainBackground />
       {previewWeapon && (
         <WeaponPreview
           key={previewWeapon + Date.now()}
