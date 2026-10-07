@@ -51,6 +51,32 @@
 
 .shamer-btn-secondary:hover { opacity: 0.85; }
 
+@keyframes weaponJump {
+  0% { transform: translateY(0); }
+  12% { transform: translateY(-10px); }
+  24% { transform: translateY(0); }
+  36% { transform: translateY(-10px); }
+  48% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.weapon-card:hover .weapon-emoji {
+  animation: weaponJump 4s ease infinite;
+}
+
+.ai-test-link:hover {
+  color: #ad0d00 !important;
+}
+
+.template-picker:hover {
+  border-color: #c97a6a !important;
+}
+
+.template-picker:focus-within {
+  border-color: #F51818 !important;
+}
+
+/* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   nav {
     top: 12px !important;
@@ -64,15 +90,31 @@
     box-shadow: 0 2px 16px rgba(243, 171, 147, 0.3) !important;
   }
 
+  /* "What is this?" — icon only, no button */
+  .nav-btn-text {
+    display: none !important;
+  }
+
+  .nav-story-btn {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 4px !important;
+  }
+
   .mobile-headline {
     font-size: 64px !important;
     line-height: 1.0 !important;
   }
 
   .mobile-subtitle {
-    margin-bottom: 36px !important;
+    margin-bottom: 6px !important;
     max-width: 300px !important;
     font-size: 16px !important;
+  }
+
+  .mobile-callout {
+    margin-bottom: 28px !important;
   }
 
   .weapon-card {
@@ -95,69 +137,12 @@
   .mobile-top-padding {
     padding-top: 120px !important;
   }
-  @media (max-width: 640px) {
-    .nav-story-btn span.nav-btn-text {
-      display: none;
-    }
-    .nav-story-btn {
-      background: transparent !important;
-      border: none !important;
-      padding: 4px !important;
-    }
-  }
-  @media (max-width: 640px) {
-    .mobile-callout {
-      margin-bottom: 28px !important;
-    }
-  }
-}
-@keyframes weaponJump {
-  0% { transform: translateY(0); }
-  12% { transform: translateY(-10px); }
-  24% { transform: translateY(0); }
-  36% { transform: translateY(-10px); }
-  48% { transform: translateY(0); }
-  100% { transform: translateY(0); }
-}
 
-.weapon-card:hover .weapon-emoji {
-  animation: weaponJump 4s ease infinite;
-}
-.ai-test-link:hover {
-  color: #ad0d00 !important;
-}
-
-.template-picker:hover {
-  border-color: #995a5a !important;
-}
-.template-picker:hover {
-  border-color: #c97a6a !important;
-}
-
-.template-picker:focus-within {
-  border-color: #F51818 !important;
-}
-
-@media (max-width: 640px) {
   .stepper-wrap {
     gap: 8px !important;
   }
+
   .stepper-wrap span {
     font-size: 10px !important;
-  }
-}
-@media (max-width: 640px) {
-  .nav-btn-text {
-    display: none !important;
-  }
-  .nav-story-btn {
-    background: transparent !important;
-    border: none !important;
-    padding: 4px !important;
-  }
-}
-@media (max-width: 640px) {
-  .mobile-subtitle {
-    margin-bottom: 6px !important;
   }
 }
