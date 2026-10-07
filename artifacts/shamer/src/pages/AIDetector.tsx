@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "../shamer.css";
+import GrainBackground from "../components/GrainBackground";
 
 const TIERS = [
   {
@@ -326,6 +327,7 @@ export default function AIDetector() {
   if (screen === "result" && score !== null && tier) {
     return (
       <>
+        <GrainBackground />
         <Nav />
         <div
           className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-8 text-center"
@@ -454,6 +456,7 @@ export default function AIDetector() {
 
   return (
     <>
+      <GrainBackground />
       <Nav />
       <div
         className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-8 text-center"
