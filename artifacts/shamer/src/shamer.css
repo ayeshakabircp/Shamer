@@ -13,21 +13,8 @@
 }
 
 .shamer-bg {
-  background-color: #FCF4F0;
+  background-color: transparent;
   position: relative;
-}
-
-.shamer-bg::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url('/bg-texture.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.4;
-  z-index: 0;
-  pointer-events: none;
 }
 
 .shamer-bg > * {
