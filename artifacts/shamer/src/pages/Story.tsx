@@ -1,4 +1,5 @@
 import "../shamer.css";
+import GrainBackground from "../components/GrainBackground";
 
 function Nav() {
   return (
@@ -14,6 +15,7 @@ function Nav() {
 export default function Story() {
   return (
     <>
+      <GrainBackground />
       <Nav />
       <div className="shamer-bg min-h-screen flex flex-col items-center justify-center" style={{ paddingTop: "100px", paddingBottom: "40px" }}>
         <img
