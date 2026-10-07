@@ -6,16 +6,14 @@ import { encodeShame } from "../lib/encoding";
 import GrainBackground from "../components/GrainBackground";
 
 const SHAME_TEMPLATES = [
-  "This went from your prompt to my problem in under 10 seconds. Thanks.",
+  "This went from your prompt to my problem in under 10 seconds. Do better.",
   "Keep. 👏 My. 👏 Inbox. 👏 Out. 👏 Of. 👏 Your. 👏 Slop.",
   "Babe... did you just outsource your feelings to a robot? Gross.",
   "Sir, that is not you in that photo. You are not that symmetrical. Be for real.",
-  "Next time, maybe meet your deliverable before you deliver it.",
-  "Uncle Frank. That joke wasn't yours. We know. The whole chat knows.",
   "For the last time. Read. It. Before. You. Send. It.",
   "Another Monday. Another recycled 'thought leadership' post written by a robot pretending to be you. Definitely original.",
-  "Do better.",
   "It's giving ctrl+C, ctrl+V. Give me a break Jessica.",
+  "Next time, maybe meet your own deliverable before you deliver it.",
 ];
 
 function generateShameLink(shameText: string, weapon: string): string {
