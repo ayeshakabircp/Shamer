@@ -5,11 +5,13 @@ import "../shamer.css";
 import { encodeShame } from "../lib/encoding";
 
 const SHAME_TEMPLATES = [
-  "Babe... did you just outscore your feelings to a robot? Gross.",
+  "This went from your prompt to my problem in under 10 seconds. Do better.",
+  "Keep. 👏 My. 👏 Inbox. 👏 Out. 👏 Of. 👏 Your. 👏 Slop.",
+  "Babe... did you just outsource your feelings to a robot? Gross.",
   "Sir, that is not you in that photo. You are not that symmetrical. Be for real.",
-  "Uncle Frank. That joke wasn't yours. We know. The whole chat knows.",
+  "Next time, maybe meet your deliverable before you deliver it.",
+  "For the last time. Read. It. Before. You. Send. It.",
   "Another Monday. Another recycled 'thought leadership' post written by a robot pretending to be you. Definitely original.",
-  "Do better.",
   "It's giving ctrl+C, ctrl+V. Give me a break Jessica.",
 ];
 
@@ -230,7 +232,7 @@ export default function Sender() {
               Were you just<br />AI-ed?
             </h1>
             <p className="leading-relaxed" style={{ fontSize: "16px", color: "#444", maxWidth: "500px", margin: "0 auto 32px", textAlign: "center" }}>
-              Got a text that felt a little too perfect? A LinkedIn post that wrote itself? A dating bio no human actually wrote?
+             Ever had to proofread a 20 page doc with 0 thoughts and 1 prompt behind it? Saw a LinkedIn post that wrote itself? A dating bio no human actually wrote?
               <br /><strong>Shamer lets you call them out 💅</strong>
             </p>
             <FlowDiagram />
