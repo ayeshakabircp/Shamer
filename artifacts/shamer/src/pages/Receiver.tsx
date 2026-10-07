@@ -3,6 +3,7 @@ import { useSearch } from "wouter";
 import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import "../shamer.css";
 import { decodeShame } from "../lib/encoding";
+import GrainBackground from "../components/GrainBackground";
 
 type ReceiverScreen = "shame" | "deserved" | "didnt-use-ai" | "never-wrong";
 
@@ -180,11 +181,11 @@ function WiggleButton({ label, onClick, style, className, anchorRef }: {
 
 export default function Receiver() {
   const search = useSearch();
-const params = new URLSearchParams(search);
-const encoded = params.get("m") ?? "";
-const shameData = encoded ? decodeShame(decodeURIComponent(encoded)) : null;
-const shameText = shameData?.message ?? "Babe... did you just outsource your feelings to a robot? Gross.";
-const selectedWeapon = params.get("w") ?? "🍅";
+  const params = new URLSearchParams(search);
+  const encoded = params.get("m") ?? "";
+  const shameData = encoded ? decodeShame(decodeURIComponent(encoded)) : null;
+  const shameText = shameData?.message ?? "Babe... did you just outsource your feelings to a robot? Gross.";
+  const selectedWeapon = params.get("w") ?? "🍅";
 
   const [screen, setScreen] = useState<ReceiverScreen>("shame");
   const [audioPlaying, setAudioPlaying] = useState(false);
@@ -237,6 +238,7 @@ const selectedWeapon = params.get("w") ?? "🍅";
   if (screen === "deserved") {
     return (
       <>
+        <GrainBackground />
         <Nav />
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center" style={{ paddingTop: "56px" }}>
           <h2 className="shamer-font-h2 mb-4" style={{ fontSize: "52px", color: "#ad0d00" }}>
@@ -257,6 +259,7 @@ const selectedWeapon = params.get("w") ?? "🍅";
   if (screen === "didnt-use-ai") {
     return (
       <>
+        <GrainBackground />
         <Nav />
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center" style={{ paddingTop: "56px" }}>
           <h2 className="shamer-font-h2 mb-8" style={{ fontSize: "52px", color: "#ad0d00", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", flexWrap: "nowrap" }}>
@@ -274,6 +277,7 @@ const selectedWeapon = params.get("w") ?? "🍅";
   if (screen === "never-wrong") {
     return (
       <>
+        <GrainBackground />
         <Nav />
         <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center overflow-hidden relative" style={{ paddingTop: "56px" }}>
           <h2 className="shamer-font-h2 mb-4" style={{ fontSize: "52px", color: "#ad0d00" }}>
@@ -297,8 +301,10 @@ const selectedWeapon = params.get("w") ?? "🍅";
     "🥚": { bg: "rgba(255,250,240,0.85)", accent: "#E8691E" },
     "💩": { bg: "rgba(245,240,232,0.85)", accent: "#8B6914" },
   }[selectedWeapon] ?? { bg: "rgba(252,244,240,0.85)", accent: "#F51818" };
+
   return (
     <>
+      <GrainBackground />
       <Nav />
       <audio ref={audioRef} src="/boo.mp3" preload="auto" />
       <div className="shamer-font-body shamer-bg min-h-screen flex flex-col items-center justify-center p-10 text-center relative overflow-hidden" style={{ paddingTop: "56px" }}>
@@ -321,25 +327,25 @@ const selectedWeapon = params.get("w") ?? "🍅";
           {audioIcon}
         </button>
         <div style={{ position: "relative", zIndex: 10 }} className="w-full max-w-sm">
-                  <h1 className="shamer-font-display mb-4 uppercase text-center" style={{ fontSize: "64px", color: weaponTheme.accent, lineHeight: 1.1 }}>
-                  You've been shamed!
-                </h1>
-                <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#444" }}>
-                  {shameText}
-                </p>
-                <div className="mb-8">
-                  <BouncingThumbsDown />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <button onClick={() => setScreen("deserved")} className="shamer-btn-primary w-full px-6 py-4 text-base">
-                    I deserved this
-                  </button>
-                  <button onClick={() => setScreen("didnt-use-ai")} className="shamer-btn-secondary w-full px-6 py-4 text-base">
-                    But I didn't use AI
-                  </button>
-                </div>
-              </div>
-            </div>
-          </>
-        );
-      }
+          <h1 className="shamer-font-display mb-4 uppercase text-center" style={{ fontSize: "64px", color: weaponTheme.accent, lineHeight: 1.1 }}>
+            You've been shamed!
+          </h1>
+          <p className="mb-6 leading-relaxed text-center" style={{ fontSize: "16px", color: "#444" }}>
+            {shameText}
+          </p>
+          <div className="mb-8">
+            <BouncingThumbsDown />
+          </div>
+          <div className="flex flex-col gap-3">
+            <button onClick={() => setScreen("deserved")} className="shamer-btn-primary w-full px-6 py-4 text-base">
+              I deserved this
+            </button>
+            <button onClick={() => setScreen("didnt-use-ai")} className="shamer-btn-secondary w-full px-6 py-4 text-base">
+              But I didn't use AI
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
